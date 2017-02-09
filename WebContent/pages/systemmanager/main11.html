@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>web查询-重庆统计微观库</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="../../static/script/common.js" type="text/javascript"></script>
+    <link type="text/css" href="tree.css" rel="stylesheet" />
+    <link type="text/css" href="main11.css" rel="stylesheet" />
+    <script type="text/javascript" src="main11.js"></script>
+    <script type="text/javascript" src="center11_tool.js"></script>
+    <script type="text/javascript" src="center11.js"></script>
+    <script type="text/javascript" src="chart.js"></script>
+</head>
+
+<body style="background-color: #D9D9D9;overflow-x:hidden">
+	<form name="form1" method="post">
+    <div class="sy-header">
+    	<div class="sy-header-top">
+	        <div class="sy-header-logo"></div>
+	        <div class="sy-czq">
+	        	<div class="sy-ctrl sy-cx" style="display:none" onclick="query()"></div>
+				<div class="sy-ctrl" style="display:none" vtype="textfield" id="textfield" name="textfield" 	height="22"  width="100" valuetip=""></div>
+	            <div class="sy-ctrl3"></div>
+	            <div class="sy-ctrl" onclick="help()">帮助</div>
+	            <div class="sy-ctrl3" onclick="">|</div>
+	            <div class="sy-ctrl" onclick="first()">首页</div>
+	            <div class="sy-ctrl3" onclick="">|</div>
+	            <div class="sy-ctrl" onclick="quit()">退出</div>
+	            <div class="sy-ctrl2">
+	            	<div id="sy-user" class="sy-ctrl-font"></div>        	
+	            </div>	            
+	        </div>
+        </div>
+        	
+        <div class="sy-header-bottom">
+            <div class="sy-header-menu">
+        	</div>
+        </div>
+    </div>
+    <div id="tab_header" style="display: none;">
+	    <!-- 第一列 -->
+	    <div style="width:445px;float:left">
+			<div id="tab-change" class="jazz-tabview-header" display:none>
+				<div class="jazz-tabview-wrap">
+					<div class="jazz-tabview-in">
+						<ul class="jazz-tabview-nav">
+		            		<li id="tab-li-1" class="jazz-tabview-default jazz-tabview-tabalign-left jazz-tabview-selected jazz-state-active" style="width: 102px;">
+		            			<a class="nav-content-middle" style="width: 102px;">变量选择</a>
+		            		</li>
+							<li id="tab-li-2" class="jazz-tabview-default jazz-tabview-default2 jazz-tabview-tabalign-left" style="width: 102px;">
+								<a class="nav-content-middle">调查对象选择</a>
+							</li>
+		        		</ul>
+		        	</div>
+		        </div>
+		        <div class="jazz-tabview-header-top"></div>
+			</div>	    	
+	    </div>
+	    <!-- 第二列 -->
+    </div>
+    <div id="content">
+      <div id="contentWestWrapper"></div>
+		<div id="content_west" style="width:350px;float:left;">
+			<div class="content_west_title"><span>变量选择区</span></div>
+           	<div id="tab_1" class="sy-tree-wrap">     
+	            <div id="lefttree" name="lefttree" class="ztree left_tree_border"></div>
+	            <div class="sy-tree-query">
+	                <div class="sy-tree-query-h">
+	                    <div class="sy-tree-query-q">
+	                        <div vtype="autocompletecomboxfield" id="treetext" name="treetext" height="25" width="100%" valuetip="点击搜索"
+	                             minquerylength="1" cacheflag="true" itemselect="tree_filter()"></div>
+	                        <div class="sy-tree-img" onclick="tree_filter()"></div>
+	                    </div>
+	                </div>
+	                <a style="width: 43px; height: 26px; display: inline-block; cursor: pointer; margin-left: 5px; line-height: 26px; text-align: center;color: #818181;background-color: #EBEBEB;" onclick="clearCondition()">清空</a>
+	            </div>
+            </div>
+		</div>
+		<div id="content_middle"></div>
+		<div id="middle_btn" class="jazz-column-btn jazz-column-btn-l" onclick="reload()"></div>
+		<div id="content_middle1"></div>
+		<div id="content_center" style="margin-left:361px;">
+			<div id="content2_north" style="overflow-x: hidden;">
+				<div id="north-1" class="north-padding">
+					<div class="noDataText">
+						<p>操作区</p>
+						<p>未选择变量，请在“变量选择区”挑选变量	</p>
+					</div>
+					<div id="paramGrid" vtype="gridpanel" linestyle="0"
+						datarender="paramRender" lineheight="35" name="rid1"
+						lineno="true" titledisplay="false" isshowselecthelper="true"
+						selecttype="2" lineno="false" style="display:none"
+						linenowidth="60"
+						>
+						<div vtype="gridcolumn" name="grid_column"
+							isdefaultclickevent="false">
+							<div>
+								<div text="" name="btn" textalign="center" width="4%"></div>
+								<div text="变量名称" name="text" width="15%"></div>
+								<div text="变量代码" name="columnName" width="10%"></div>
+								<div text="数据来源" name="source" width="15%"></div>
+								<div text="计量单位" name="unit" width="8%"></div>
+								<div text="频率" name="bgqb" width="10%"
+									dataurl='[{value:"N",text:"年度"},{value:"Y",text:"月度"},{value:"BN",text:"半年度"},{value:"J",text:"季度"}]'></div>
+								<div text="起始时间" name="firstTime" width="10%"></div>
+								<div text="截止时间" name="lastTime" width="10%"></div>
+								<!-- <div text="最后更新时间" name="updateTime" width="13%"></div> -->
+								<div text="调查对象数量" name="soNum" width="10%"></div>
+							</div>
+						</div>
+						<!-- 表格 -->
+						<div vtype="gridtable" name="grid_table"></div>
+					</div>
+				</div>
+				<div id="north-2" class="north-padding" style="display: none;">
+					<div id="objectGrid" vtype="gridpanel" linestyle="0"
+						datarender="objectRender" lineheight="35" linenowidth="50"
+						groupfield="groupId" grouptitlefield="groupName" height="100%"
+						name="rid2" width="100%" lineno="false" titledisplay="false"
+						isshowselecthelper="false" selecttype="2" lineno="false">
+						<!-- 表头（多级表头） -->
+						<div vtype="gridcolumn" name="grid_column2"
+							isdefaultclickevent="false">
+							<div text="id" name="id"></div>
+						</div>
+						<!-- 表格 -->
+						<div vtype="gridtable" name="grid_table2"></div>
+					</div>
+				</div>
+				<div class="tqsj_btn">
+					<div style="float: right; margin-right: 20px;">							
+			    		<div class="ctrl-area-btn ctrl-btn-img-qkxz"  onclick="qkxz()">
+			    			<span>清空选择</span>
+			    		</div>
+						<div class="ctrl-area-btn ctrl-btn-img-tqsj" onclick="tqsj()"></div>
+					</div>
+				</div>
+			</div>
+			<div id="content2_center" style="overflow:visible">
+				<div id="titleAreaWrapper" style="display: none;" >				
+				<div id="titleArea" style="display:none;z-index:205;height:37px">
+					<div id="optionArea" class="optionArea" style="width:145px;float:left;position:relative;">
+						<div  class="ctrl-area-btn2 ctrl-btn-img-wdzh" onclick="wdzh()" title="表式定义"></div>
+						<div id="sx" class="ctrl-area-btn2 ctrl-btn-img-sx" onclick="sx()" title="筛选"></div>
+						<div id="sxButton" class="sxButton" style="display:none;">
+							<div  class="ctrl-area-btn1 ctrl-btn-img-blsx" onclick="measureSx()" title="变量筛选"></div>
+							<div class="ctrl-area-btn1 ctrl-btn-img-dxsx" onclick="objectSx()" title="对象筛选"></div>
+						</div>
+						<div class="ctrl-area-btn1 ctrl-btn-img-bj" style="display:none" onclick="wdzh()" title="统计"></div>
+						<div id="ht"  class="ctrl-area-btn2 ctrl-btn-img-ht" onclick="ht()" title="绘图"></div>
+						<div id="htButton" class="htButton" style="display:none;position:absolute;">
+							<div  class="ctrl-area-btn1 ctrl-btn-img-ht-bar" onclick="drawBar(true)" title="柱状图"></div>
+							<div  class="ctrl-area-btn1 ctrl-btn-img-ht-line" onclick="drawLine(true)" title="折线图"></div>
+							<div  class="ctrl-area-btn1 ctrl-btn-img-ht-bar_line" onclick="drawBarLine(true)" title="柱折图"></div>
+							<div  class="ctrl-area-btn1 ctrl-btn-img-ht-pie" onclick="drawPie(true)" title="饼图"></div>
+							<div  class="ctrl-area-btn1 ctrl-btn-img-ht-barStack" onclick="drawBarStack(true)" title="堆积图"></div>
+							<div  class="ctrl-area-btn1 ctrl-btn-img-ht-scatter" onclick="drawScatter(true)" title="气泡图"></div>
+							<div  class="ctrl-area-btn1 ctrl-btn-img-ht-radar"  onclick="drawRadar(true)" title="雷达图"></div>
+						</div>
+					<!-- <div  class="ctrl-area-btn2 ctrl-btn-img-ht-close" onclick="backToTop()" title="回到顶部"></div> -->
+					</div>
+					<div>
+						<div id="coreGridToolbar" name="toolbar" style="float:right" > 
+			            </div>
+				 	</div>
+				</div>
+				</div>
+				<div class="noData">
+					<div class="vcenter">
+						<p>展示区</p>
+						<p>未提取数据，请选择变量并“提取数据”</p>
+					</div>
+				</div>
+						   <div id="drawDivWrapper">
+								<div id="drawdiv" class="yx-wrap" style="display: none;z-index:204">
+									<div id="drawTools" style="float: right; height: 25px; margin: 5px 20px 0 0;">
+										<input type="radio" name="changeClumToRow" value="row" checked/>行&nbsp;
+										<input type="radio" name="changeClumToRow" value="column"/>列&nbsp;
+										<a style="cursor:pointer;width: 42px; height: 20px; line-height: 20px; background-image: url('images/bianji.png'); background-repeat:no-repeat; display: inline-block; padding-left: 18px;" onclick="editCharts()">编辑</a>
+										<!-- <div class="ctrl-area-btn ctrl-btn-img-bianji" onclick="editCharts()"></div> -->
+									</div>
+									<div id="drawArea" style="margin-top: 20px;"></div>
+								</div>
+							</div>
+							<div id="coreGrid" vtype="gridpanel" linestyle="0"
+								datarender="coreRender" lineheight="35" linenowidth="50"
+								name="czrzGrid" lineno="false" titledisplay="false"
+								isshowselnecthelper="false" selecttype="0"  overflow="hidden"
+								>
+
+								<!-- 表头（多级表头） -->
+								<div id="coreGridColumn">
+								<div vtype="gridcolumn" name="grid_column3" id="grid_column3"
+									isdefaultclickevent="false">
+									<div text="id" name="id"></div>
+									
+								</div>
+								</div>
+								<!-- 表格 -->
+								<div vtype="gridtable" name="grid_table" id="grid_table" isshowpaginator="true"></div>
+							</div>
+							<div id="coreGridPaginatorWrapper" style="display:none">
+							 <div id="coreGridPaginator" vtype="paginator" style="width:966px;z-index:1" cardnumber="5" cardnumber="5" theme="3"></div>
+							</div>
+							<div id="tab_2" style="height: 0px; overflow: hidden; display: none;">
+							    <div id="tab_dcdx" style="margin-top: -57px; margin-left: -90px;"  name="tab_dcdx" vtype="tabpanel" width="445" height="500" tabtitlewidth="130" orientation="top" showtabclose="false" tabalign="left" overflowtype="1" showborder="false">
+							        <ul>
+							         	<!-- 标题 -->
+							        </ul>
+							        <div>
+							         	<!-- 内容 -->
+							        </div>     
+							    </div>
+				            </div>
+						<!-- </div> -->
+						<!-- <div id="optionAreaWrapper" style="height:300px;width:52px;display:none;position:fixed;right:0px;z-index:210;background-color: #F3F4EF; border-left: 1px solid #DDDDDD; border-bottom: 0px solid #C0C0C0;border-right: 9px solid #D9D9D9;">
+						   <div id="optionAreaTitle">操作区</div>
+						</div>	 -->
+			</div>
+		</div>
+		<div style="clear:both"></div>
+	</div>
+    
+    <div id="bottom_1" class="sy-bottom-bg">
+         <div class="sy-bottom">
+           	 版权所有 重庆市统计局 渝ICP备05015457号 技术支持： 长城计算机软件与系统有限公司 地址：重庆市渝北区美源国际大厦 邮编：510003 E-mail: master_cq@cq.stats.cn
+         </div>
+    </div>
+    <div id="scrollWrapper" style="height:20px;background-color:#F1F1F1;display:none"></div>
+   	<div id="scrollOuter" style="overflow:auto;position:fixed;bottom:0;z-index:1000;">
+   		<div id="scrollInner" style="height:20px;"></div>
+   	</div>
+    </form>
+    
+    <div id="titleMask" style="display:none"></div>
+</body>
+
+</html>
+

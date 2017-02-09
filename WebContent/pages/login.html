@@ -1,0 +1,187 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+%>
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<title>防御方案自动生成系统</title>
+<base href="<%=basePath%>">
+<script src="static/script/common.js" type="text/javascript"></script>
+<link rel="stylesheet" href="static/css/login/login.css" type="text/css"><nk>
+<script>
+//登入界面只能显示在顶层窗口
+ if(window!=top){
+	top.location.href=window.location.href;
+}
+	$(function() {
+	
+		$(document).keydown(function(event) {
+			if (event.keyCode == 13) {
+				login();
+			}
+		});
+		
+		_addImg();
+		
+		_frameHeihgt();
+		
+		
+		//控制中间部分不随浏览器窗口大小的改变而改变
+ 		$("body").on("resize", function(){
+ 			$(".div_center_wrap").css({"paddingTop": "10px"});
+ 			$(".div_line").width("100%");
+ 			$(".div_center").width("100%").height("auto");
+ 			
+ 			_addImg();
+ 			_frameHeihgt();
+		});
+		
+	});
+	
+	var num = 419;
+	function _addImg(){
+		$(".div_ditu").empty();
+		var aWidth = jazz.util.windowWidth();
+		if(aWidth <= 1024){
+			$(".div_ditu").append('<img src="static/images/login/t600.png" />');
+			$(".div_line").width(1000);
+			$(".div_login").css({"right": "50px"});
+		}else if(aWidth <= 1280){
+			$(".div_ditu").append('<img src="static/images/login/t1440.png" />');	
+			$(".div_center").width(1000);
+			$(".div_login").css({"right": "10px"});			
+		}else if(aWidth <= 1660){
+			$(".div_ditu").append('<img src="static/images/login/t1440.png" />');
+			$(".div_center").width(1280);
+			$(".div_login").css({"right": "90px"});			
+		}else{
+			$(".div_ditu").append('<img src="static/images/login/t1920.png" />');
+			$(".div_center").width(1440);
+			$(".div_login").css({"right": "220px"});
+			$(".div_center").height(465);
+			num = 465;
+		}
+	}
+	
+	function _frameHeihgt(){
+		var aHeight=jazz.util.windowHeight();
+		var _h = aHeight - $(".div_top").outerHeight() - $(".div_bottom_bg").outerHeight();
+		var flag = true;
+		if(_h <= num){
+			_h =  num;
+			flag = false;
+		}
+		$(".div_line").outerHeight(_h);	
+		if(flag){
+			$(".div_center_wrap").css({"paddingTop": Math.floor(($(".div_line").height() - num)/2)+10});
+		}
+	}
+
+	/* function login() {
+		var userVerify=$("#dlm").textfield("verify");
+		var pwdVerify=$("#mm").passwordfield("verify");
+		if(userVerify && pwdVerify){
+			$.ajax({
+				url:"../../../admin/login.do",
+				data:{
+					dlm : $("#dlm").textfield("getValue"),
+					 mm : $("#mm").passwordfield("getValue")
+				},
+				type:"post",
+				success:function(res){
+					if(res.back=='success'){
+						window.location.href = rootPath + res.url;
+					}else{
+						jazz.error(res.msg);
+					}
+				}
+			});
+		}
+	}
+	
+	relogin();	
+	
+	function relogin(){
+		$.ajax({
+			url:"../../../admin/relogin.do",
+			type:"post",
+			success:function(res){
+				if(res.back=='success'){
+					//获取登录用户
+					$.ajax({
+						url : rootPath+'/admin/getLoginName.do',
+						type : 'post',
+						async: true,
+						success : function(data){
+							var login = data["loginName"] || "";
+							if(login){
+								$(".login_name").append(login +", 欢迎您登录！");				
+							}else{
+								$(".login_name").append("欢迎您登录！");
+							}
+						}
+					});
+					$("#div-dl").hide();
+					$("#div-rdl").show();
+					$(".div_jrxt").on("click", function(){
+						window.location.href = rootPath + res.url;
+					});
+					$(".div_tcxt").on("click", function(){
+						var params = {
+							url : rootPath+'/admin/quit.do',
+							callback : function(data, r, res) {
+								$("#div-rdl").hide();
+								$("#div-dl").show();								
+							}
+						};
+						$.DataAdapter.submit(params);						
+					});
+				}else{
+					$("#div-rdl").hide();
+					$("#div-dl").show();
+				}
+			}
+		});		
+	} */
+</script>
+</head>
+<body>
+       <div class="div_top">
+          <div class="top_logo"></div>
+       </div>
+       
+       <div class="div_line">
+       	 <div class="div_center_wrap">
+	         <div class="div_center">
+		         <div class="div_ditu"></div>
+		         <div style="clear:both;"></div>
+		         <div class="div_login">
+		         	  <div id="div-dl">
+			             <div class="div_yhm">
+			                  <!-- <input type="text" id="dlm" class="div_yhm_input" width="197" height="30" value="用户名" /> -->
+				              <div vtype="textfield" id="dlm" class="div_yhm_input" width="197" height="30" valuetip="用户名"></div>
+			             </div>
+			             <div class="div_mm">
+			                  <!-- <input type="password"  class="div_mm_input" id="mm" width="197" height="30" value="密码" /> -->
+			                  <div vtype="password" id="mm" class="div_mm_input" width="197" height="30" valuetip="密码"></div>
+			             </div> 
+			             <div class="div_button" onclick="login()"></div>
+			             <!-- <div class="div_span"><span class="div_span1">没有帐号，</span><span class="div_span2">申请使用</span></div> -->
+		             </div>
+		             <div id="div-rdl" style="display:none;">
+		             	<div class="login_name"></div>
+		             	<div class="div_jrxt"></div>
+		             	<div class="div_tcxt"></div>
+		             </div>
+		         </div>
+	         </div>
+         </div>
+       </div>
+
+       <div class="div_bottom_bg">
+          <div class="div_bottom">版权所有:胡潇云   地址:北京市海淀区学院路37号北京航空航天大学   邮编:100083   Email:xiaoyunhu1992@outlook.com</div>
+       </div>
+</body>
+</html>

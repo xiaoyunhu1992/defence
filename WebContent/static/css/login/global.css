@@ -1,0 +1,22 @@
+body {
+	background-color: #ffffff;
+}
+
+.title_nav {
+	height:30px;
+	line-height:30px;
+	padding-left:32px;
+	padding-top:5px;
+	background:url(../../../static/images/other/home.png) no-repeat 5px 5px;
+	background-position:10px 11px;
+	background-color:white;
+	font-size: 12px;
+	color: #666666;	
+	font-family:simsun;
+	font-weight:normal;
+	border-bottom: 2px solid #3EBDD9;
+}
+
+.title_nav span{
+	color: red;	
+}
