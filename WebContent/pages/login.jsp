@@ -49,7 +49,6 @@ $(function(){
 				if(userVerify && pwdVerify){
 					$.ajax({
 						 url:"../user/login", 
-						/* url:"../good", */
 						data:{
 							username : userVerify,
 							password : pwdVerify

@@ -47,7 +47,7 @@ public class UserController {
 			map.put("msg", "用户名或密码错误，请重新输入！");
 			return map;
 		}
-		map.put("url", "NewsTransmission");
+		map.put("url", "overview");
 		map.put("back", "success");
 		
 		HttpSession session = req.getSession();
