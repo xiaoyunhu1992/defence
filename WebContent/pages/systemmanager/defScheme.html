@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="../../static/css/systemmanager/grid.css"  media="screen" />
 <link rel="stylesheet" type="text/css" href="../../static/css/systemmanager/layout.css"  media="screen" />
 <link rel="stylesheet" type="text/css" href="../../static/css/systemmanager/nav.css"  media="screen" />
-    
+<link rel="stylesheet" type="text/css" href="../../static/css/systemmanager/buttons.css"  media="screen" />    
 <!-- BEGIN: load jquery -->
 <script src="../../static/js/jquery-1.6.4.min.js"  type="text/javascript"></script>
 <script type="text/javascript" src="../../static/js/jquery-ui/jquery.ui.core.min.js" ></script>
@@ -28,10 +28,11 @@
 <script language="javascript" type="text/javascript" src="../../static/js/jqPlot/plugins/jqplot.pointLabels.min.js" ></script>
 <!-- END: load jqplot -->
 <script src="../../static/js/setup.js"  type="text/javascript"></script>
+<script src="../../static/js/graph.js"  type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function () {
     	getLoginName();
-/*     	Search(); */
+    	/* Search(); */
     	//setupDashboardChart('chart1');
     	setupLeftMenu();
 	    setSidebarHeight();
@@ -77,12 +78,14 @@
         <div class="grid_12">
         	<div style='width: 100%; height:30px' >
             	<ul class="nav main">
-                	<li class="ic-dashboard"><a href="attackGraph.html" ><span>攻击图生成</span></a> </li>
-					<li class="ic-dashboard"><a href="defScheme.html" ><span>防御方案生成</span></a></li>
+<!--             	<li class="ic-dashboard"><a href="NewsTransmission.html" ><span>网络基本信息导入</span></a> </li> -->
+                <li class="ic-dashboard"><a href="attackGraph.html" ><span>攻击图生成</span></a> </li>
+<!--                 <li class="ic-dashboard"><a href="NewsTransmission.html" ><span>防御任务备选集导入</span></a> </li> -->	
+			<li class="ic-dashboard"><a href="defScheme.html" ><span>防御方案生成</span></a></li>
            		</ul>
             </div>>
         </div>
-    <!--     <div class="clear"></div> -->
+	<div class="clear"></div> 
         <!-- <div class="grid_2">
             <div class="box sidemenu">
                 <div class="block" id="section-menu">
@@ -109,13 +112,21 @@
                 </div>
             </div>
         </div> -->
-
-        <div class="grid_10" id="grid_10">
+       <div class="grid_10" id="grid_10">
 			<div style='background:#F0F0F0;y; width: 100%; height:560px' class='operate_all'>
+				<div style='margin:auto; height=60px; position: absolute; left:40px; top:160px;'>
+					<button class='button button-royal button-small' onclick='doSearch()'>生成防御方案</button>
+				</div>
+				<div style='margin:auto; height=60px; position: absolute; left:40px; top:220px;'>
+				<button class='button button-royal button-small' type='button' onclick='doSearch()'>防御方案生成结果对比1</button>
+				</div>
+				<div style='margin:auto; height=60px; position: absolute; left:40px; top:280px;'>
+					<button class='button button-royal button-small' type='button' onclick='doSearch()'>防御方案生成结果对比2</button>
+				</div>
 			</div>
        </div>
         <div class="clear"></div>
-    </div>
+    <!-- </div> -->
     <div class="clear"></div>
     <div id="site_info">
         <p>版权所有 <a href="#">胡潇云</a>. 北京航空航天大学.</p>
