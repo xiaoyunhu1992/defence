@@ -47,7 +47,7 @@ public class GraphOutUnsimply {
                 int num = 1;
 
                 gv.addln(gv.start_graph());
-                gv.addln("size=\"8,8\"");
+                gv.addln("size=\"10,10\"");
                 
                 int hpNum = 0;
                 int hsNum = 0;
@@ -285,28 +285,28 @@ public class GraphOutUnsimply {
                 gv.addln(gv.end_graph());
 
 
-                String type = "gif";
+                String type = "png";
                 File out = new File("/Users/hxy/Documents/workspace/defence/WebContent/static/images/systemmanager/outunsimple." + type);
                 gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type), out);
                 
                 
-                File outfile = new File("/Users/hxy/Documents/±ÏÉèÏà¹Ø/graphviz»æÍ¼/out_explainUnsimple.txt"); 
+//                File outfile = new File("/Users/hxy/Documents/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/graphvizï¿½ï¿½Í¼/out_explainUnsimple.txt"); 
                 
-                try{
-                	
-                	FileWriter fileWriter = new FileWriter(outfile);
-                	String s = new String();
-                	
-                	for(Map.Entry<String, Integer>entry : node_num.entrySet()){
-                		s = s + entry.getValue()+": "+ entry.getKey()+"\r\n";
-                	}
-                	
-                	fileWriter.write(s);  
-                    fileWriter.close();
-                
-                }catch(IOException e){
-                	 e.printStackTrace(); 
-                }               
+//                try{
+//                	
+//                	FileWriter fileWriter = new FileWriter(outfile);
+//                	String s = new String();
+//                	
+//                	for(Map.Entry<String, Integer>entry : node_num.entrySet()){
+//                		s = s + entry.getValue()+": "+ entry.getKey()+"\r\n";
+//                	}
+//                	
+//                	fileWriter.write(s);  
+//                    fileWriter.close();
+//                
+//                }catch(IOException e){
+//                	 e.printStackTrace(); 
+//                }               
         }
 
 }

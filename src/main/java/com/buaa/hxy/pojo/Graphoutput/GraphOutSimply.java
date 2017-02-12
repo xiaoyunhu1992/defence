@@ -314,7 +314,7 @@ public class GraphOutSimply {
         //System.out.println(gv.getDotSource());
 
 
-        String type = "gif";
+        String type = "png";
         // String type = "dot";
         // String type = "fig"; // open with xfig
         // String type = "pdf";
@@ -326,22 +326,22 @@ public class GraphOutSimply {
         gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type), out);
         
         
-        File outfile = new File("/Users/hxy/Documents/±ÏÉèÏà¹Ø/graphviz»æÍ¼/out_explain.txt"); 
+//        File outfile = new File("/Users/hxy/Documents/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/graphvizï¿½ï¿½Í¼/out_explain.txt"); 
         
-        try{
-        	
-        	FileWriter fileWriter = new FileWriter(outfile);
-        	String s = new String();
-        	
-        	for(Map.Entry<String, Integer>entry : node_num.entrySet()){
-        		s = s + entry.getValue()+": "+ entry.getKey()+"\r\n";
-        	}
-        	
-        	fileWriter.write(s);  
-            fileWriter.close();
-        
-        }catch(IOException e){
-        	 e.printStackTrace(); 
-        }        
+//        try{
+//        	
+//        	FileWriter fileWriter = new FileWriter(outfile);
+//        	String s = new String();
+//        	
+//        	for(Map.Entry<String, Integer>entry : node_num.entrySet()){
+//        		s = s + entry.getValue()+": "+ entry.getKey()+"\r\n";
+//        	}
+//        	
+//        	fileWriter.write(s);  
+//            fileWriter.close();
+//        
+//        }catch(IOException e){
+//        	 e.printStackTrace(); 
+//        }        
 }
 }

@@ -34,7 +34,7 @@ public class UserController {
     	String username = req.getParameter("username").trim();
 		String password = req.getParameter("password").trim();
         Map map=new HashMap();
-		if (username=="") {
+		if (username=="" ) {
 			map.put("back", "fail");
 			map.put("msg", "用户名不能为空");
 			return map;

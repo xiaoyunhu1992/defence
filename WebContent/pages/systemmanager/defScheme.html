@@ -28,7 +28,8 @@
 <script language="javascript" type="text/javascript" src="../../static/js/jqPlot/plugins/jqplot.pointLabels.min.js" ></script>
 <!-- END: load jqplot -->
 <script src="../../static/js/setup.js"  type="text/javascript"></script>
-<script src="../../static/js/graph.js"  type="text/javascript"></script>
+<script src="../../static/js/scheme.js"  type="text/javascript"></script>
+<script src="../../static/js/echarts.js"  type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function () {
     	getLoginName();
@@ -114,14 +115,20 @@
         </div> -->
        <div class="grid_10" id="grid_10">
 			<div style='background:#F0F0F0;y; width: 100%; height:560px' class='operate_all'>
-				<div style='margin:auto; height=60px; position: absolute; left:40px; top:160px;'>
-					<button class='button button-royal button-small' onclick='doSearch()'>生成防御方案</button>
+				<div style='margin:auto; height=60px;width=160px; position: absolute; left:25px; top:160px;'>
+					<button class='button button-royal button-small' onclick='doSearch()'style="width: 180px; height: 30px;">导入防御任务库</button>
 				</div>
-				<div style='margin:auto; height=60px; position: absolute; left:40px; top:220px;'>
-				<button class='button button-royal button-small' type='button' onclick='doSearch()'>防御方案生成结果对比1</button>
+				<div style='margin:auto; height=60px; position: absolute; left:25px; top:220px;'>
+				<button class='button button-royal button-small' type='button' onclick='schNormal()' style="width: 180px; height: 30px;">防御方案生成</button>
 				</div>
-				<div style='margin:auto; height=60px; position: absolute; left:40px; top:280px;'>
-					<button class='button button-royal button-small' type='button' onclick='doSearch()'>防御方案生成结果对比2</button>
+				<div style='margin:auto; height=60px; position: absolute; left:25px; top:280px;'>
+					<button class='button button-royal button-small' type='button' onclick='doSearch()' style="width: 180px; height: 30px;">防御方案生成结果对比1</button>
+				</div>
+				<div style='margin:auto; height=60px; position: absolute; left:25px; top:340px;'>
+					<button class='button button-royal button-small' type='button' onclick='doSearch()' style="width: 180px; height: 30px;">防御方案生成结果对比2</button>
+				</div>
+				<div class="grid_11" id="grid_11" ></div>
+				<div class="grid_14" id="draw" style ='position: absolute;left:240px; top:190px;width:800px;height:500px;' >
 				</div>
 			</div>
        </div>
