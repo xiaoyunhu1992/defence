@@ -840,28 +840,6 @@ static ArrayList<Node> mergeList(ArrayList<Node> inList, ArrayList<Node> compLis
 }
   
     
-    @RequestMapping(value ="/getLoginName",method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String,String> getLoginName(HttpSession session){
-    	Map<String,String> map=new HashMap<String,String>();
-    	
-    	String username = (String) session.getAttribute("userName");
-    	String password= (String) session.getAttribute("password");
-    	
-        if(null!=username){
-            map.put("userName", username);
-            map.put("password", password);
-        }
-        return map;
-    }
-    
-    @RequestMapping(value ="/quit",method = RequestMethod.POST)
-	@ResponseBody
-	public void quit(HttpSession session){
-		session.removeAttribute("userName");
-		session.removeAttribute("password");
-		session.invalidate();
-    }
     
     
     

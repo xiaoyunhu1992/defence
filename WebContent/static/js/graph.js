@@ -20,7 +20,26 @@ function doSearch(){
 	});
 }
 
+function uploadNetwork(){
+	var formData = new FormData($(form1)[0]);
+	
+	$.ajax({
+		url :"../../fileupload/network",
+		data: formData,
+		type : 'post',
+		async: false,
+		contentType:false,
+		processData:false,
+		success : function(res){
+			alert(res);
+		}
+	});
+}
+
+
 function genUnsimAg(){
+	//	var removeObj = document.getElementById('submit');
+	//	removeObj.parentNode.removeChild(removeObj);
 	$.ajax({
 		url :"../../attackgraph/generate",
 		type : 'post',
@@ -31,9 +50,9 @@ function genUnsimAg(){
 		success : function(){
 			//alert("success");
 //			$("#out").attr("src","../../static/images/systemmanager/outunsimple.gif");
-			$("#out").attr("src","http://localhost:9999/outunsimple.png");
+//			$("#out").attr("src","http://localhost:9999/outunsimple.png");
 //			$("#out").attr("src","/Users/hxy/Documents/workspace/defence/WebContent/static/images/systemmanager");
-//			$("#grid_11").append("<img id ='out' src=\"${pageContext.request.contextPath}/WebContent/static/images/systemmanager/outunsimple.gif>")
+			$("#out").attr("src","http://localhost:9999/outunsimple.svg")
 		}
 	});
 }
@@ -51,8 +70,9 @@ function gensimAg(){
 			//$("#outunsimple").remove;
 			//$("#grid_11").append("<img src=../../static/images/systemmanager/outsimple.gif>")
 //			$("#out").attr("src","../../static/images/systemmanager/outsimple.gif");
-			$("#out").attr("src","http://localhost:9999/outsimple.png");
+			$("#out").attr("src","http://localhost:9999/outsimple.svg")//
 //			$("#out").attr("src","/Users/hxy/Documents/workspace/defence/WebContent/static/images/systemmanager/outsimple.gif");
 		}
+		
 	});
 }

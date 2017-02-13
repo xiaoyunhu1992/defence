@@ -285,7 +285,7 @@ public class GraphOutUnsimply {
                 gv.addln(gv.end_graph());
 
 
-                String type = "png";
+                String type = "svg";
                 File out = new File("/Users/hxy/Documents/workspace/defence/WebContent/static/images/systemmanager/outunsimple." + type);
                 gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type), out);
                 

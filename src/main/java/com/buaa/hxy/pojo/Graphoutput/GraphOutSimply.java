@@ -314,12 +314,12 @@ public class GraphOutSimply {
         //System.out.println(gv.getDotSource());
 
 
-        String type = "png";
+//        String type = "png";
         // String type = "dot";
         // String type = "fig"; // open with xfig
         // String type = "pdf";
         // String type = "ps";
-        // String type = "svg"; // open with inkscape
+         String type = "svg"; // open with inkscape
         // String type = "png";
         // String type = "plain";
         File out = new File("/Users/hxy/Documents/workspace/defence/WebContent/static/images/systemmanager/outsimple." + type);

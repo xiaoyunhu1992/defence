@@ -53,5 +53,11 @@
            </list>  
        </property>  
    </bean>  
+   <!-- 支持上传文件 -->
+   <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+   <!-- 一定要这个annotation-driven，不然获得不了静态资源，还有注意mapping的值一定不要与项目名字开头有相同的，否则会出很多问题 ，很多要通过controler的都会出问题-->
+   <mvc:annotation-driven/>
+<!--     映射静态资源后面img引用图片路径要这个静态映射  -->
+    <mvc:resources location="/Users/hxy/Documents" mapping="/Users/hxy/Documents/**" /> 
 	
 </beans>
