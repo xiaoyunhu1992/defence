@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.buaa.hxy.dao.IServiceEntityDao" >
+  <resultMap id="BaseResultMap" type="com.buaa.hxy.pojo.ServiceEntity" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="hostName" property="hostName" jdbcType="VARCHAR" />
+    <result column="ServiceName" property="ServiceName" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="VARCHAR" />
+    <result column="protocol" property="protocol" jdbcType="VARCHAR" />
+    <result column="port" property="port" jdbcType="VARCHAR" />
+    <result column="priviledge" property="priviledge" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sid, hostName ,ServiceName,version,protocol,port
+  </sql>
+   <insert id="setServiceEntity" parameterType="com.buaa.hxy.pojo.ServiceEntity" >
+    insert into service (hostName,ServiceName,version,protocol,port,priviledge)
+    values (#{hostName,jdbcType=VARCHAR}, #{ServiceName,jdbcType=VARCHAR},#{version,jdbcType=VARCHAR}, #{protocol,jdbcType=VARCHAR},#{port,jdbcType=VARCHAR},#{priviledge,jdbcType=VARCHAR})
+  </insert>
+  <delete id="delService">
+  delete from service
+  </delete>
+ <!--  <select id="setConnEntity" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from schemes
+  </select> -->
+<!--   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_t
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.buaa.hxy.pojo.User" >
+    insert into user_t (id, user_name, password, 
+      age)
+    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{age,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.buaa.hxy.pojo.User" >
+    insert into user_t
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.buaa.hxy.pojo.User" >
+    update user_t
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.buaa.hxy.pojo.User" >
+    update user_t
+    set user_name = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update> -->
+</mapper>
