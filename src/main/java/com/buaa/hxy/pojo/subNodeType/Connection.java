@@ -5,23 +5,23 @@ import com.buaa.hxy.pojo.FClass.Computer;
 
 
 public class Connection extends StateNode{
-Computer source;
-Computer destiny;
-String protocal;
-String prot;
-public String getprotocal() {
-	return protocal;
-}
-public void setProtcal(String protocal) {
-	this.protocal = protocal;
-}
-public String getProt() {
-	return prot;
-}
-public void setProt(String prot) {
-	this.prot = prot;
-}
-public Computer getSource() {
+	Computer source;
+	Computer destiny;
+	String protocal;
+	String prot;
+	public String getprotocal() {
+		return protocal;
+	}
+	public void setProtcal(String protocal) {
+		this.protocal = protocal;
+	}
+	public String getProt() {
+		return prot;
+	}
+	public void setProt(String prot) {
+		this.prot = prot;
+	}
+	public Computer getSource() {
 		return source;
 	}
 	public void setSource(Computer source) {

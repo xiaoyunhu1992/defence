@@ -1,7 +1,6 @@
 package com.buaa.hxy.pojo.fact;
 
 
-/**¶ÔÏÖÓÐ¼ÆËã»úºÍ¼ÆËã»úµÄÁ¬½Ó¹ØÏµ½øÐÐÃèÊö**/
 import java.util.ArrayList;
 
 import com.buaa.hxy.pojo.subNodeType.Connection;
@@ -41,7 +40,6 @@ public class InitialFact {
 	public ArrayList<Computer> returnComputerList(){
 		ArrayList<Computer> computerList = new ArrayList<Computer>();
 		
-		//////////////DNSµÄ¼ÆËã»ú×´Ì¬ºÍ·þÎñ×´Ì¬
 		Computer dnsServer = new Computer();
 		dnsServer.setComputerName("DNSserver");
 		dnsServer.setIPAddress("192.168.1.120");
@@ -59,7 +57,6 @@ public class InitialFact {
 		
 
 		
-		//////////////webserverµÄ¼ÆËã»ú×´Ì¬ºÍ·þÎñ×´Ì¬		
 		Computer webServer = new Computer();
 		webServer.setComputerName("Webserver");
 		webServer.setIPAddress("192.168.1.110");
@@ -73,13 +70,12 @@ public class InitialFact {
 		webService.setProtocal("tcp");
 		webService.setVul("CVE_2010_2730");
 		
-		//Ìí¼Ó±¾µØÂ©¶´==================hxy0916 21:52 ÐÞ¸Ä
 		
 		Service webService2 = new Service();
 		webService2.setPort("8080");
 		webService2.setServeceName("apache");
 		webService2.setVersion("1.3.29");
-		webService2.setPrivilege(0); //µ±Ç°·þÎñµÄÔËÐÐÈ¨ÏÞ
+		webService2.setPrivilege(0); 
 		webService2.setProtocal("tcp");
 		webService2.setVul("CVE_2003_0542");
 		
@@ -87,7 +83,7 @@ public class InitialFact {
 		webServer.getServiceList().add(webService);
 		webServer.getServiceList().add(webService2);
 		
-		//////////////ftp_1µÄ¼ÆËã»ú×´Ì¬ºÍ·þÎñ×´Ì¬
+		//////////////ftp_1ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½Í·ï¿½ï¿½ï¿½×´Ì¬
 		Computer ftpServer_1 = new Computer();
 		ftpServer_1.setComputerName("FTPserver_1");
 		ftpServer_1.setIPAddress("192.168.1.80");
@@ -104,7 +100,7 @@ public class InitialFact {
 		ftpServer_1.getServiceList().add(ftpService_1);
 		
 		
-		//////////////SMTPµÄ¼ÆËã»ú×´Ì¬ºÍ·þÎñ×´Ì¬
+		//////////////SMTPï¿½Ä¼ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½Í·ï¿½ï¿½ï¿½×´Ì¬
 		Computer smtpServer = new Computer();
 		smtpServer.setComputerName("SMTPserver");
 		smtpServer.setIPAddress("192.168.1.65");
@@ -121,7 +117,7 @@ public class InitialFact {
 		smtpServer.getServiceList().add(smtpService);
 		
 		
-		//////////////databaseµÄ¼ÆËã»ú×´Ì¬ºÍ·þÎñ×´Ì¬
+		//////////////databaseï¿½Ä¼ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½Í·ï¿½ï¿½ï¿½×´Ì¬
 		Computer databaseServer = new Computer();
 		databaseServer.setComputerName("Databaseserver");
 		databaseServer.setIPAddress("12.1.0.1");
@@ -138,7 +134,7 @@ public class InitialFact {
 		databaseServer.getServiceList().add(databaseService);
 		
 		
-		//////////////fileServerµÄ¼ÆËã»ú×´Ì¬ºÍ·þÎñ×´Ì¬
+		//////////////fileServerï¿½Ä¼ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½Í·ï¿½ï¿½ï¿½×´Ì¬
 		Computer fileServer = new Computer();
 		fileServer.setComputerName("Rejetto HTTP File Server");
 		fileServer.setIPAddress("10.0.0.49");
@@ -156,7 +152,7 @@ public class InitialFact {
 		
 		
 		
-		//////////////ftp_2µÄ¼ÆËã»ú×´Ì¬ºÍ·þÎñ×´Ì¬
+		//////////////ftp_2ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½Í·ï¿½ï¿½ï¿½×´Ì¬
 		Computer ftpServer_2 = new Computer();
 		ftpServer_2.setComputerName("FTPserver_2");
 		ftpServer_2.setIPAddress("192.168.1.80");
@@ -174,7 +170,7 @@ public class InitialFact {
 		
 
 		
-		//////////////user1µÄ¼ÆËã»ú×´Ì¬ºÍ·þÎñ×´Ì¬
+		//////////////user1ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½Í·ï¿½ï¿½ï¿½×´Ì¬
 		Computer user_1 = new Computer();
 		user_1.setComputerName("User_1");
 		user_1.setIPAddress("10.0.0.11");
@@ -191,7 +187,7 @@ public class InitialFact {
 		user_1.getServiceList().add(userService_1);
 
 		
-		//////////////user2µÄ¼ÆËã»ú×´Ì¬ºÍ·þÎñ×´Ì¬
+		//////////////user2ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½Í·ï¿½ï¿½ï¿½×´Ì¬
 		Computer user_2 = new Computer();
 		user_2.setComputerName("User_2");
 		user_2.setIPAddress("10.0.0.12");
@@ -209,7 +205,7 @@ public class InitialFact {
 		
 
 		
-//////////////user3µÄ¼ÆËã»ú×´Ì¬ºÍ·þÎñ×´Ì¬
+//////////////user3ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½Í·ï¿½ï¿½ï¿½×´Ì¬
 		Computer user_3 = new Computer();
 		user_3.setComputerName("User_3");
 		user_3.setIPAddress("10.0.0.13");
@@ -226,8 +222,8 @@ public class InitialFact {
 		user_3.getServiceList().add(userService_3);
 		
 
-		///////////////////¸ø³ö¹¥»÷ÕßËùÔÚ³õÊ¼Ö÷»ú
-			///¹¥»÷ÕßËùÔÚÍâ²¿Ö÷»ú
+		///////////////////ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
+			///ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â²¿ï¿½ï¿½ï¿½ï¿½
 		Computer malicious = new Computer();
 		malicious.setComputerName("Malicious");
 		malicious.setIPAddress("219.224.166.131");
@@ -240,7 +236,7 @@ public class InitialFact {
 //		attackerList.add(attacker);
 		
 		
-		///////////////////////////////¸ø³öÁ¬½Ó¹ØÏµ
+		///////////////////////////////ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¹ï¿½Ïµ
 	
 		Connection m2dns = new Connection();
 		m2dns.setSource(malicious);
@@ -277,7 +273,7 @@ public class InitialFact {
 		malicious.getConnectionList().add(m2ftp_1);
 		malicious.getConnectionList().add(m2smtp);
 
-		//-----------------------------------------------ÒÔÉÏÊÇÒÔ maliciousÎª sourceµÄÁ¬½Ó
+		//-----------------------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ maliciousÎª sourceï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		
 		Connection web2ftp_1 = new Connection();
 		web2ftp_1.setSource(webServer);
@@ -503,7 +499,7 @@ public class InitialFact {
 		
 		
 		
-		////////////¼ÓÈëµ½ÁÐ±í²¢·µ»Ø
+		////////////ï¿½ï¿½ï¿½ëµ½ï¿½Ð±?ï¿½ï¿½ï¿½ï¿½
 		computerList.add(dnsServer);
 		computerList.add(smtpServer);
 		computerList.add(databaseServer);
