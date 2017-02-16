@@ -9,9 +9,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -21,11 +18,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.buaa.hxy.pojo.AttackerEntity;
 import com.buaa.hxy.pojo.ConnEntity;
 import com.buaa.hxy.pojo.HostEntity;
+import com.buaa.hxy.pojo.SafeEventEntity;
 import com.buaa.hxy.pojo.ServiceEntity;
 import com.buaa.hxy.pojo.VulnEntity;
 import com.buaa.hxy.service.IEntityService;
+
+import sun.print.resources.serviceui;
 
 @Controller
 @RequestMapping("/fileupload")
@@ -56,6 +57,9 @@ public class UploadNetwrokController {
             return "can't upload empty file";
         }
 	}
+	
+	
+	
 	public void parseNetwork(String path) {
         try {
         	
@@ -69,10 +73,6 @@ public class UploadNetwrokController {
         		System.out.print(str);
         	}
         	
-        	this.entityservice.delConn();
-        	this.entityservice.delHost();
-        	this.entityservice.delVuln();
-        	this.entityservice.delService();
         	
         	for (String item : networktext){
         		
@@ -86,6 +86,7 @@ public class UploadNetwrokController {
         			conn.setdesName(element[1]);
         			conn.setprotocol(element[2]);
         			conn.setport(element[3]);
+                	this.entityservice.delConn();
         			this.entityservice.setConnEntity(conn);
         				
         		}
@@ -97,6 +98,7 @@ public class UploadNetwrokController {
         			host.setIP(element[1]);
         			host.setMASK(element[2]);
 //        			System.out.print(element[2]+'\n');
+                	this.entityservice.delHost();
         			this.entityservice.setHostEntity(host);
         				
         		}
@@ -108,6 +110,7 @@ public class UploadNetwrokController {
         			vuln.setVulID(element[1]);
         			vuln.setServiceName(element[2]);
 //        			System.out.print(element[2]+'\n');
+                	this.entityservice.delVuln();
         			this.entityservice.setVulnEntity(vuln);
         				
         		}
@@ -120,8 +123,26 @@ public class UploadNetwrokController {
         			service.setprotocol(element[3]);
         			service.setport(element[4]);
         			service.setpriviledge(element[5]);
+                	this.entityservice.delService();
         			this.entityservice.setServiceEntity(service);
         				
+        		}
+        		else if (itempart[0].equals("attacker")){
+        			String[] element = itempart[1].split(",");
+        			AttackerEntity attacker = new AttackerEntity();
+        			attacker.sethostName(element[0]);
+        			attacker.setpriviledge(element[1]);
+                	this.entityservice.delAttacker();
+        			this.entityservice.setAttackerEntity(attacker);
+        		}
+        		else if(itempart[0].equals("safeEvent")){
+        			String[] element = itempart[1].split(",");
+        			SafeEventEntity safeEvent = new SafeEventEntity();
+        			safeEvent.sethostName(element[0]);
+        			safeEvent.setserviceName(element[1]);
+        			safeEvent.setpriviledge(element[2]);
+                	this.entityservice.delSafeEvent();
+        			this.entityservice.setSafeEventEntity(safeEvent);
         		}
         		
 //        		System.out.print(itempart[0]+'\n');

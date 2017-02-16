@@ -9,14 +9,14 @@ public class HostPrivilege extends StateNode{
 	Attacker attacker = new Attacker();
 	Computer destiny = new Computer();
     int priviledge;
-    int zdayTimes = 0;
-    
-    public int getZdayTimes(){
-    	return zdayTimes;
-    }
-    public void setZdayTimes(int num){
-    	this.zdayTimes = num;
-    }
+//    int zdayTimes = 0;
+//    
+//    public int getZdayTimes(){
+//    	return zdayTimes;
+//    }
+//    public void setZdayTimes(int num){
+//    	this.zdayTimes = num;
+//    }
     
 	public Attacker getAttacker() {
 		return attacker;

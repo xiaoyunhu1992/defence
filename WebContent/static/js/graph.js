@@ -1,21 +1,36 @@
 /***************************************攻击图生成*******************************/
 
-function doSearch(){
-	var txtsearch=$(".txt_search").val();
-	//alert(txtsearch);
+//function doSearch(){
+//	var txtsearch=$(".txt_search").val();
+//	//alert(txtsearch);
+//	$.ajax({
+//		url :"../../Message/GetMessageByKeyWord",
+//		data:{
+//			keyword:txtsearch
+//		},
+//		type : 'post',
+//		async: true,
+//		success : function(data){
+//			//alert("success");
+//			for (var i=0;i<data.length;i++)
+//			{
+//				$("#grid_10").append("<div>"+data[i]+"</div>")
+//			}
+//		}
+//	});
+//}
+function uploadEvi(){
+	var formData = new FormData($(form2)[0]);
+	
 	$.ajax({
-		url :"../../Message/GetMessageByKeyWord",
-		data:{
-			keyword:txtsearch
-		},
+		url :"../../fileupload/network",
+		data: formData,
 		type : 'post',
-		async: true,
-		success : function(data){
-			//alert("success");
-			for (var i=0;i<data.length;i++)
-			{
-				$("#grid_10").append("<div>"+data[i]+"</div>")
-			}
+		async: false,
+		contentType:false,
+		processData:false,
+		success : function(res){
+			alert(res);
 		}
 	});
 }

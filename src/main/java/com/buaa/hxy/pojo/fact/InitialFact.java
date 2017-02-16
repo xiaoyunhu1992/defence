@@ -2,9 +2,15 @@ package com.buaa.hxy.pojo.fact;
 
 
 import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.buaa.hxy.pojo.subNodeType.Connection;
-
+import com.buaa.hxy.service.IEntityService;
+import com.buaa.hxy.pojo.AttackerEntity;
+import com.buaa.hxy.pojo.HostEntity;
 import com.buaa.hxy.pojo.FClass.Attacker;
 import com.buaa.hxy.pojo.FClass.Computer;
 import com.buaa.hxy.pojo.FClass.Service;
@@ -12,6 +18,32 @@ import com.buaa.hxy.pojo.FClass.Service;
 public class InitialFact {
 
 	public ArrayList<Attacker> returnAttackerList(){
+////		ArrayList<Attacker> b = new ArrayList<Attacker>();
+////		List<AttackerEntity> attackerlist = this.entityservice.getAttackerList();
+////		System.out.print(s);
+////		for(AttackerEntity item : attackerlist){
+////			Computer com = new Computer();
+////			com.setComputerName(item.gethostName());
+////			HostEntity host = this.entityservice.getComputer(item.gethostName());
+////			com.setIPAddress(host.getIP());
+////			com.setMask(host.getMASK());
+////			Attacker attacker = new Attacker();
+////			attacker.setAttackerComputer(com);
+////			String priviledge = item.getpriviledge();
+////			if (priviledge.equals("root")){
+////				attacker.setPrivilege(2);
+////			}
+////			else if (priviledge.equals("user")){
+////				attacker.setPrivilege(1);
+////			}
+////			else if (priviledge.equals("guest")){
+////				attacker.setPrivilege(0);
+////
+////			}
+////			a.add(attacker);
+////		}
+////		return a;
+//		
 		Computer malicious = new Computer();
 		malicious.setComputerName("Malicious");
 		malicious.setIPAddress("219.224.166.131");

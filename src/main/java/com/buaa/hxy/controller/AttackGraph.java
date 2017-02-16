@@ -3,6 +3,7 @@ package com.buaa.hxy.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -18,7 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.buaa.hxy.pojo.AttackerEntity;
+import com.buaa.hxy.pojo.HostEntity;
 import com.buaa.hxy.pojo.User;
+import com.buaa.hxy.service.IEntityGetService;
+import com.buaa.hxy.service.IEntityService;
 import com.buaa.hxy.service.IUserService;
 
 import com.buaa.hxy.pojo.AttackGraphNodeType.StateNode;
@@ -47,27 +52,29 @@ import com.buaa.hxy.pojo.fact.RemotePriEscaRule;
 @Controller
 @RequestMapping("/attackgraph")
 public class AttackGraph {
-    //@Resource 
 	@Autowired
-    @Qualifier("userService")
-//    private IUserService userService;  
+    @Qualifier("entityGetService")
+	private IEntityService entityservice;
 	static String targetName =  "Databaseserver";
 	static int privilege =2;
 	static int times = 0;
 	static int sim;//0表示未化简，1表示化简后
 	static ArrayList<Node> ag = new ArrayList<Node>();
 	static ArrayList<Node> tempAG = new ArrayList<Node>();		
-	static InitialFact factList = new InitialFact();
-	static ArrayList<Computer> computerList = factList.returnComputerList();
-	static ArrayList <Attacker> attackerList = factList.returnAttackerList();
-	static RemotePriEscaRule rper = new RemotePriEscaRule();
-	static ArrayList<RemotePriEscaRule> rperList = rper.initRPER();
-	static LocalPriEscaRule lper = new LocalPriEscaRule();
-	static ArrayList<LocalPriEscaRule> lperList = lper.initLPER();
+	InitialFact factList = new InitialFact();
+	ArrayList<Computer> computerList = factList.returnComputerList();
+//	ArrayList <Attacker> attackerList = factList.returnAttackerList();
+	RemotePriEscaRule rper = new RemotePriEscaRule();
+	ArrayList<RemotePriEscaRule> rperList = rper.initRPER();
+	LocalPriEscaRule lper = new LocalPriEscaRule();
+	ArrayList<LocalPriEscaRule> lperList = lper.initLPER();
+	ArrayList<Attacker> attackerList = initFactAttacker();
+
     @RequestMapping(value ="/generate",method = RequestMethod.POST)
 	@ResponseBody
 	public void generate(HttpServletRequest req){
     	sim = Integer.valueOf(req.getParameter("simply").trim()).intValue();
+
 
     	HostPrivilege targetNode = AttackGraph.getTargetNode(computerList);//获取目标状态；				
 		getAttackGraph(targetNode);
@@ -76,13 +83,40 @@ public class AttackGraph {
 		if (sim == 1){
 			GraphOutSimply newGraph = new GraphOutSimply();
 			newGraph.start(ag);
-			}
+		}
 		else{
 			GraphOutUnsimply newGraph = new GraphOutUnsimply();
 			newGraph.start(ag);
-			}
 		}
-    public static boolean getAttackGraph(Node targetNode){
+	}
+    public  ArrayList<Attacker> initFactAttacker(){
+    	ArrayList<Attacker> a = new ArrayList<Attacker>();
+		List<AttackerEntity> attackerlist = this.entityservice.getAttackerList();
+//		for(AttackerEntity item : attackerlist){
+//			System.out.println(item.gethostName());
+//			Computer com = new Computer();
+//			com.setComputerName(item.gethostName());
+//			HostEntity host = this.entityservice.getComputer(item.gethostName());
+//			com.setIPAddress(host.getIP());
+//			com.setMask(host.getMASK());
+//			Attacker attacker = new Attacker();
+//			attacker.setAttackerComputer(com);
+//			String priviledge = item.getpriviledge();
+//			if (priviledge.equals("root")){
+//				attacker.setPrivilege(2);
+//			}
+//			else if (priviledge.equals("user")){
+//				attacker.setPrivilege(1);
+//			}
+//			else if (priviledge.equals("guest")){
+//				attacker.setPrivilege(0);
+//
+//			}
+//			a.add(attacker);
+//		}
+		return a;
+    }
+    public boolean getAttackGraph(Node targetNode){
 	
     	//表示这次调用是否完成攻击
     	boolean existAccess = false;

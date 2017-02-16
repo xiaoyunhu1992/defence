@@ -16,6 +16,7 @@ public interface IHostEntityDao {
 
     void setHostEntity(HostEntity hostentity);//insert an connection item into database
     void delHost();
+    HostEntity getComputer(String hostName);
     String getConSource();
     String getConDes();
     String getConPortocol();

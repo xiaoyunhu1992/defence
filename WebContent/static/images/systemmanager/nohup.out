@@ -118,3 +118,13 @@
 127.0.0.1 - - [14/Feb/2017 12:15:57] "GET /outunsimple.svg HTTP/1.1" 200 -
 127.0.0.1 - - [14/Feb/2017 12:16:25] "GET /outsimple.svg HTTP/1.1" 200 -
 127.0.0.1 - - [14/Feb/2017 12:18:14] "GET /outunsimple.svg HTTP/1.1" 200 -
+127.0.0.1 - - [16/Feb/2017 11:10:41] "GET /outunsimple.svg HTTP/1.1" 200 -
+127.0.0.1 - - [16/Feb/2017 11:10:42] "GET /outsimple.svg HTTP/1.1" 200 -
+127.0.0.1 - - [16/Feb/2017 11:10:56] "GET /outunsimple.svg HTTP/1.1" 200 -
+127.0.0.1 - - [16/Feb/2017 11:21:43] "GET /outsimple.svg HTTP/1.1" 200 -
+127.0.0.1 - - [16/Feb/2017 13:33:46] "GET /outsimple.svg HTTP/1.1" 200 -
+127.0.0.1 - - [16/Feb/2017 13:33:48] "GET /outunsimple.svg HTTP/1.1" 200 -
+127.0.0.1 - - [16/Feb/2017 13:33:50] "GET /outsimple.svg HTTP/1.1" 200 -
+127.0.0.1 - - [16/Feb/2017 13:56:51] "GET /outsimple.svg HTTP/1.1" 200 -
+127.0.0.1 - - [16/Feb/2017 16:03:17] "GET /outunsimple.svg HTTP/1.1" 200 -
+127.0.0.1 - - [16/Feb/2017 16:03:18] "GET /outsimple.svg HTTP/1.1" 200 -

@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.buaa.hxy.dao.IHostEntityDao" >
-  <resultMap id="BaseResultMap" type="com.buaa.hxy.pojo.HostEntity" >
-    <id column="hid" property="hid" jdbcType="INTEGER" />
+<mapper namespace="com.buaa.hxy.dao.ISafeEventEntityDao" >
+  <resultMap id="BaseResultMap" type="com.buaa.hxy.pojo.SafeEventEntity" >
+    <id column="eid" property="eid" jdbcType="INTEGER" />
     <result column="hostName" property="hostName" jdbcType="VARCHAR" />
-    <result column="IP" property="IP" jdbcType="VARCHAR" />
-    <result column="MASK" property="MASK" jdbcType="VARCHAR" />
+    <result column="serviceName" property="serviceName" jdbcType="VARCHAR" />
+    <result column="priviledge" property="priviledge" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    hid, hostName ,IP,MASK
+    aid, hostName,serviceName,priviledge
   </sql>
-   <insert id="setHostEntity" parameterType="com.buaa.hxy.pojo.HostEntity" >
-    insert into host (hostName,IP,MASK)
-    values (#{hostName,jdbcType=VARCHAR}, #{IP,jdbcType=VARCHAR}, #{MASK,jdbcType=VARCHAR})
+   <insert id="setSafeEventEntity" parameterType="com.buaa.hxy.pojo.SafeEventEntity" >
+    insert into safeEvent (hostName,serviceName,priviledge)
+    values (#{hostName,jdbcType=VARCHAR},#{serviceName,jdbcType=VARCHAR}, #{priviledge,jdbcType=VARCHAR})
   </insert>
-  <delete id="delHost">
-  delete from host
+  <delete id="delSafeEvent">
+  delete from safeEvent
   </delete>
-  <select id = "getComputer" resultMap = "BaseResultMap" parameterType = "java.lang.String">
-  select * from host where hostName=#{hostName,jdbcType=VARCHAR}
-  </select>
  <!--  <select id="setConnEntity" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select * from schemes
   </select> -->
