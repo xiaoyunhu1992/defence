@@ -17,6 +17,9 @@
   <delete id="delVuln">
   delete from vulnerability
   </delete>
+  <select id="getvulEntityList" resultMap="BaseResultMap" parameterType="java.lang.String">
+  select * from vulnerability where ServiceName=#{ServiceName,jdbcType=VARCHAR}
+  </select>
  <!--  <select id="setConnEntity" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select * from schemes
   </select> -->

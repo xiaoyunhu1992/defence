@@ -1,5 +1,7 @@
 package com.buaa.hxy.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.buaa.hxy.pojo.ConnEntity;
@@ -17,6 +19,7 @@ public interface IVulnEntityDao {
 
     void setVulnEntity(VulnEntity vulnentity);//insert an connection item into database
     void delVuln();
+    List<VulnEntity> getvulEntityList(String ServiceName);
 //    String getConSource();
 //    String getConDes();
 //    String getConPortocol();

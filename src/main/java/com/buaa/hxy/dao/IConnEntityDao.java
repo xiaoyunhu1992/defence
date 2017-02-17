@@ -1,5 +1,7 @@
 package com.buaa.hxy.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.buaa.hxy.pojo.ConnEntity;
@@ -15,7 +17,7 @@ public interface IConnEntityDao {
 
     void setConnEntity(ConnEntity conn);//insert an connection item into database
     void delConn();
-    
+    List<ConnEntity> getConnEntityList(String sourceName);
     String getConSource();
     String getConDes();
     String getConPortocol();

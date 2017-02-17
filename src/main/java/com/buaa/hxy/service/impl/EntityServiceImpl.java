@@ -51,6 +51,9 @@ public class EntityServiceImpl implements IEntityService {
 	public HostEntity getComputer(String name){
 		return this.hostentitydao.getComputer(name);
 	}
+	public List<HostEntity> getHostList(){
+		return this.hostentitydao.getHostList();
+	}
 
     @Override
     public void setConnEntity(ConnEntity conn) {  
@@ -60,6 +63,11 @@ public class EntityServiceImpl implements IEntityService {
     public void delConn(){
     	this.connentitydao.delConn();
     }
+    public List<ConnEntity> getConnEntityList(String sourceName){
+    	return this.connentitydao.getConnEntityList(sourceName);
+    }
+    
+    
     @Override
     public void setVulnEntity(VulnEntity vuln) {  
         // TODO Auto-generated method stub  
@@ -67,6 +75,9 @@ public class EntityServiceImpl implements IEntityService {
     } 
     public void delVuln(){
     	this.vulnentitydao.delVuln();
+    }
+    public List<VulnEntity> getvulEntityList(String serviceName){
+    	return this.vulnentitydao.getvulEntityList(serviceName);
     }
     @Override
     public void setServiceEntity(ServiceEntity serviceentity){
@@ -76,6 +87,11 @@ public class EntityServiceImpl implements IEntityService {
     public void delService(){
     	this.serviceentitydao.delService();
     }
+	public List<ServiceEntity> getServiceEntityList(String hostName){
+		return this.serviceentitydao.getServiceEntityList(hostName);
+	}
+
+	
     public void setAttackerEntity(AttackerEntity attackerentity){
     	this.attackerentitydao.setAttackerEntity(attackerentity);
     }

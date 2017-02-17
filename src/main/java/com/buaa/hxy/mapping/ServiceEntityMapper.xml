@@ -21,6 +21,9 @@
   <delete id="delService">
   delete from service
   </delete>
+  <select id ="getServiceEntityList" resultMap="BaseResultMap" parameterType="java.lang.String">
+  select * from service where hostName=#{hostName,jdbcType=VARCHAR}
+  </select>
  <!--  <select id="setConnEntity" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select * from schemes
   </select> -->

@@ -1,5 +1,7 @@
 package com.buaa.hxy.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.buaa.hxy.pojo.ConnEntity;
@@ -17,6 +19,7 @@ public interface IServiceEntityDao {
 
     void setServiceEntity(ServiceEntity serviceentity);//insert an connection item into database
     void delService();
+    List<ServiceEntity> getServiceEntityList(String hostName);
 //    String getConSource();
 //    String getConDes();
 //    String getConPortocol();

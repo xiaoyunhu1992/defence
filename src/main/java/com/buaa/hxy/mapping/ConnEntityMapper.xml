@@ -19,6 +19,9 @@
   <delete id="delConn">
   delete from connection
   </delete>
+  <select id="getConnEntityList" resultMap="BaseResultMap" parameterType="java.lang.String">
+  select * from connection where sourceName=#{sourceName,jdbcType=VARCHAR}
+  </select>
  <!--  <select id="setConnEntity" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select * from schemes
   </select> -->

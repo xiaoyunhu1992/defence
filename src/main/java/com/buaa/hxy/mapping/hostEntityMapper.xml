@@ -20,6 +20,9 @@
   <select id = "getComputer" resultMap = "BaseResultMap" parameterType = "java.lang.String">
   select * from host where hostName=#{hostName,jdbcType=VARCHAR}
   </select>
+  <select id="getHostList" resultMap="BaseResultMap">
+  select * from host
+  </select>
  <!--  <select id="setConnEntity" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select * from schemes
   </select> -->

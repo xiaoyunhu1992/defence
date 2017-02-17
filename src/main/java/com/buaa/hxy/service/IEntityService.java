@@ -27,4 +27,8 @@ public interface IEntityService {
 	
 	public List<AttackerEntity> getAttackerList();
 	public HostEntity getComputer(String name);
+	public List<HostEntity> getHostList();
+	public List<ServiceEntity> getServiceEntityList(String hostName);
+	public List<VulnEntity> getvulEntityList(String serviceName);
+	public List<ConnEntity> getConnEntityList(String sourceName);
 }

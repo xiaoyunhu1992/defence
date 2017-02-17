@@ -191,7 +191,7 @@ public class InitialFact {
 		
 		Service ftpService_2 = new Service();
 		ftpService_2.setPort("21");
-		ftpService_2.setServeceName("NULL FTP Server ro ");
+		ftpService_2.setServeceName("NULL FTP Server Pro");
 		ftpService_2.setVersion("1.1.0.7");
 		ftpService_2.setPrivilege(0);
 		ftpService_2.setProtocal("tcp");
@@ -329,6 +329,7 @@ public class InitialFact {
 	
 		webServer.getConnectionList().add(web2ftp_1);
 		webServer.getConnectionList().add(web2database);
+//		webServer.getConnectionList().add(web2dns);
 		
 		
 		Connection ftp_1tdatabase = new Connection();
