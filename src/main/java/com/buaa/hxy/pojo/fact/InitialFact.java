@@ -114,8 +114,7 @@ public class InitialFact {
 		//=============================
 		webServer.getServiceList().add(webService);
 		webServer.getServiceList().add(webService2);
-		
-		//////////////ftp_1�ļ����״̬�ͷ���״̬
+	
 		Computer ftpServer_1 = new Computer();
 		ftpServer_1.setComputerName("FTPserver_1");
 		ftpServer_1.setIPAddress("192.168.1.80");

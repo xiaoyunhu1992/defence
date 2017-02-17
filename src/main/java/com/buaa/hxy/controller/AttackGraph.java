@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.buaa.hxy.pojo.AttackerEntity;
 import com.buaa.hxy.pojo.HostEntity;
 import com.buaa.hxy.pojo.User;
-import com.buaa.hxy.service.IEntityGetService;
 import com.buaa.hxy.service.IEntityService;
 import com.buaa.hxy.service.IUserService;
 
@@ -53,7 +52,7 @@ import com.buaa.hxy.pojo.fact.RemotePriEscaRule;
 @RequestMapping("/attackgraph")
 public class AttackGraph {
 	@Autowired
-    @Qualifier("entityGetService")
+    @Qualifier("entityService")
 	private IEntityService entityservice;
 	static String targetName =  "Databaseserver";
 	static int privilege =2;
@@ -61,23 +60,26 @@ public class AttackGraph {
 	static int sim;//0表示未化简，1表示化简后
 	static ArrayList<Node> ag = new ArrayList<Node>();
 	static ArrayList<Node> tempAG = new ArrayList<Node>();		
-	InitialFact factList = new InitialFact();
-	ArrayList<Computer> computerList = factList.returnComputerList();
+//	InitialFact factList = new InitialFact();
+//	ArrayList<Computer> computerList = factList.returnComputerList();
 //	ArrayList <Attacker> attackerList = factList.returnAttackerList();
 	RemotePriEscaRule rper = new RemotePriEscaRule();
 	ArrayList<RemotePriEscaRule> rperList = rper.initRPER();
 	LocalPriEscaRule lper = new LocalPriEscaRule();
 	ArrayList<LocalPriEscaRule> lperList = lper.initLPER();
-	ArrayList<Attacker> attackerList = initFactAttacker();
+//	ArrayList<Attacker> attackerList = initFactAttacker();
 
     @RequestMapping(value ="/generate",method = RequestMethod.POST)
 	@ResponseBody
 	public void generate(HttpServletRequest req){
     	sim = Integer.valueOf(req.getParameter("simply").trim()).intValue();
-
+    	InitialFact factList = new InitialFact();
+//    	ArrayList<Computer> computerList = factList.returnComputerList();
+    	ArrayList<Attacker> attackerList = initFactAttacker();
+    	ArrayList<Computer> computerList = initComputer();
 
     	HostPrivilege targetNode = AttackGraph.getTargetNode(computerList);//获取目标状态；				
-		getAttackGraph(targetNode);
+		getAttackGraph(targetNode,attackerList,computerList);
 		
 		
 		if (sim == 1){
@@ -89,34 +91,40 @@ public class AttackGraph {
 			newGraph.start(ag);
 		}
 	}
+    public ArrayList<Computer> initComputer(){
+    	ArrayList<Computer> c = new ArrayList<Computer>();
+    	ArrayList<HostEntity> hostlist = this.entityservice.getHostList();
+    	return c;
+    }
     public  ArrayList<Attacker> initFactAttacker(){
     	ArrayList<Attacker> a = new ArrayList<Attacker>();
 		List<AttackerEntity> attackerlist = this.entityservice.getAttackerList();
-//		for(AttackerEntity item : attackerlist){
-//			System.out.println(item.gethostName());
-//			Computer com = new Computer();
-//			com.setComputerName(item.gethostName());
-//			HostEntity host = this.entityservice.getComputer(item.gethostName());
-//			com.setIPAddress(host.getIP());
-//			com.setMask(host.getMASK());
-//			Attacker attacker = new Attacker();
-//			attacker.setAttackerComputer(com);
-//			String priviledge = item.getpriviledge();
-//			if (priviledge.equals("root")){
-//				attacker.setPrivilege(2);
-//			}
-//			else if (priviledge.equals("user")){
-//				attacker.setPrivilege(1);
-//			}
-//			else if (priviledge.equals("guest")){
-//				attacker.setPrivilege(0);
-//
-//			}
-//			a.add(attacker);
-//		}
+		for(AttackerEntity item : attackerlist){
+			System.out.println(item.gethostName());
+			Computer com = new Computer();
+			com.setComputerName(item.gethostName());
+			HostEntity host = this.entityservice.getComputer(item.gethostName());
+			com.setIPAddress(host.getIP());
+			com.setMask(host.getMASK());
+			Attacker attacker = new Attacker();
+			attacker.setAttackerComputer(com);
+			String priviledge = item.getpriviledge();
+			if (priviledge.equals("root")){
+				attacker.setPrivilege(2);
+			}
+			else if (priviledge.equals("user")){
+				attacker.setPrivilege(1);
+			}
+			else if (priviledge.equals("guest")){
+				attacker.setPrivilege(0);
+
+			}
+			System.out.print(item.gethostName());
+			a.add(attacker);
+		}
 		return a;
     }
-    public boolean getAttackGraph(Node targetNode){
+    public boolean getAttackGraph(Node targetNode,ArrayList<Attacker> attackerList,ArrayList<Computer> computerList ){
 	
     	//表示这次调用是否完成攻击
     	boolean existAccess = false;
@@ -166,9 +174,9 @@ public class AttackGraph {
 							/***
 							 * test
 							 */
-							if(con.getDestiny().getComputerName()=="User_3"){
-								System.out.println(con.getSource().getComputerName());
-							}
+//							if(con.getDestiny().getComputerName()=="User_3"){
+//								System.out.println(con.getSource().getComputerName());
+//							}
 							
 							//开始对节点进行实例化；
 							HostPrivilege hp = new HostPrivilege();
@@ -237,7 +245,7 @@ public class AttackGraph {
 							if(HpintempAGFlag == false){//无环
 																	
 								tempAG.addAll(inList);
-								getAccess = getAttackGraph(hp);
+								getAccess = getAttackGraph(hp,attackerList,computerList);
 								existAccess = getAccess || existAccess;
 								
 								if(getAccess == false){//
@@ -324,7 +332,7 @@ public class AttackGraph {
 								
 						if(HpintempAGFlag == false){//无环
 							tempAG.addAll(inList);
-							getAccess = getAttackGraph(hp);
+							getAccess = getAttackGraph(hp,attackerList,computerList);
 							existAccess = getAccess || existAccess;
 								
 							if(getAccess == false){//

@@ -15,16 +15,13 @@ import com.buaa.hxy.pojo.fact.InitialFact;
 
 public class RemotePriEscaRule extends AttackRule{
 
-	///状态节点
 	HostPrivilege hp = new HostPrivilege();
 	HostVulnerability hv = new HostVulnerability();
 	HostService hs = new HostService();
 	Connection co = new Connection();
 	
-	//动作节点
 	RemotePriEscaAttack pea = new RemotePriEscaAttack();
 	
-	//目标节点
 	HostPrivilege thp = new HostPrivilege();
 	
 
@@ -221,14 +218,12 @@ public class RemotePriEscaRule extends AttackRule{
 //		rper.add(cve_2014_7226);
 
 		
-		//______________________________________添加0day漏洞利用规则__________
 
 //		ArrayList<RemotePriEscaRule> rper0day = new ArrayList<RemotePriEscaRule>();
 //		rper0day = initRPER0day();
 //		
 //		rper.addAll(rper0day);
 //		
-//		//______________________________________添加0day漏洞利用规则__________
 		
 		return rper;
 		

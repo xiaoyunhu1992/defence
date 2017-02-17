@@ -46,7 +46,7 @@ public class UploadNetwrokController {
                 BufferedOutputStream stream =
                         new BufferedOutputStream(new FileOutputStream(networkfile));
                 stream.write(bytes);
-                System.out.println(stream);
+//                System.out.println(stream);
                 stream.close();
                 parseNetwork(path+"/upload-network.txt");
                 return "upload success";
@@ -70,9 +70,13 @@ public class UploadNetwrokController {
         	String str = null;
         	while((str = br.readLine()) != null) {
         		networktext.add(str);
-        		System.out.print(str);
+//        		System.out.print(str);
         	}
-        	
+        	this.entityservice.delConn();
+        	this.entityservice.delHost();
+        	this.entityservice.delVuln();
+        	this.entityservice.delService();
+        	this.entityservice.delAttacker();
         	
         	for (String item : networktext){
         		
@@ -86,8 +90,7 @@ public class UploadNetwrokController {
         			conn.setdesName(element[1]);
         			conn.setprotocol(element[2]);
         			conn.setport(element[3]);
-                	this.entityservice.delConn();
-        			this.entityservice.setConnEntity(conn);
+                	this.entityservice.setConnEntity(conn);
         				
         		}
         		else if (itempart[0].equals("host")){
@@ -98,8 +101,7 @@ public class UploadNetwrokController {
         			host.setIP(element[1]);
         			host.setMASK(element[2]);
 //        			System.out.print(element[2]+'\n');
-                	this.entityservice.delHost();
-        			this.entityservice.setHostEntity(host);
+                	this.entityservice.setHostEntity(host);
         				
         		}
         		else if (itempart[0].equals("hostVulnerability")){
@@ -110,8 +112,7 @@ public class UploadNetwrokController {
         			vuln.setVulID(element[1]);
         			vuln.setServiceName(element[2]);
 //        			System.out.print(element[2]+'\n');
-                	this.entityservice.delVuln();
-        			this.entityservice.setVulnEntity(vuln);
+                	this.entityservice.setVulnEntity(vuln);
         				
         		}
         		else if (itempart[0].equals("hostService")){
@@ -123,8 +124,7 @@ public class UploadNetwrokController {
         			service.setprotocol(element[3]);
         			service.setport(element[4]);
         			service.setpriviledge(element[5]);
-                	this.entityservice.delService();
-        			this.entityservice.setServiceEntity(service);
+                	this.entityservice.setServiceEntity(service);
         				
         		}
         		else if (itempart[0].equals("attacker")){
@@ -132,8 +132,7 @@ public class UploadNetwrokController {
         			AttackerEntity attacker = new AttackerEntity();
         			attacker.sethostName(element[0]);
         			attacker.setpriviledge(element[1]);
-                	this.entityservice.delAttacker();
-        			this.entityservice.setAttackerEntity(attacker);
+                	this.entityservice.setAttackerEntity(attacker);
         		}
         		else if(itempart[0].equals("safeEvent")){
         			String[] element = itempart[1].split(",");
