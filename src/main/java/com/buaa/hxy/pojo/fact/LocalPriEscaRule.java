@@ -59,29 +59,29 @@ public class LocalPriEscaRule extends AttackRule{
 		this.pea = pea;
 	}
 	
-	public ArrayList<LocalPriEscaRule> initLPER(){
-		ArrayList <LocalPriEscaRule> lper = new ArrayList <LocalPriEscaRule>();
-		
-		//CVE_2003_0542
-		
-		LocalPriEscaRule cve_2003_0542 = new LocalPriEscaRule();
-		cve_2003_0542.getHs().getService().setServeceName("Apache");
-		cve_2003_0542.getHs().getService().setPort("8080");
-		cve_2003_0542.getHs().getService().setProtocal("tcp");
-		cve_2003_0542.getHs().getService().setPrivilege(0);
-		cve_2003_0542.getHs().getService().setVersion("1.3.29");
-		
-		
-		cve_2003_0542.getHv().setVulID("CVE_2003_0542");
-		cve_2003_0542.getHv().setServiceName("Apache");
-				
-		cve_2003_0542.getHp().setPriviledge(1);
-		
-		cve_2003_0542.getPea().setVulID("CVE_2003_0542");
-		
-		cve_2003_0542.getThp().setPriviledge(2);
-		
-		lper.add(cve_2003_0542);
-		return lper;
-	}
+//	public ArrayList<LocalPriEscaRule> initLPER(){
+//		ArrayList <LocalPriEscaRule> lper = new ArrayList <LocalPriEscaRule>();
+//		
+//		//CVE_2003_0542
+//		
+//		LocalPriEscaRule cve_2003_0542 = new LocalPriEscaRule();
+//		cve_2003_0542.getHs().getService().setServeceName("Apache");
+//		cve_2003_0542.getHs().getService().setPort("8080");
+//		cve_2003_0542.getHs().getService().setProtocal("tcp");
+//		cve_2003_0542.getHs().getService().setPrivilege(0);
+//		cve_2003_0542.getHs().getService().setVersion("1.3.29");
+//		
+//		
+//		cve_2003_0542.getHv().setVulID("CVE_2003_0542");
+//		cve_2003_0542.getHv().setServiceName("Apache");
+//				
+//		cve_2003_0542.getHp().setPriviledge(1);
+//		
+//		cve_2003_0542.getPea().setVulID("CVE_2003_0542");
+//		
+//		cve_2003_0542.getThp().setPriviledge(2);
+//		
+//		lper.add(cve_2003_0542);
+//		return lper;
+//	}
 }

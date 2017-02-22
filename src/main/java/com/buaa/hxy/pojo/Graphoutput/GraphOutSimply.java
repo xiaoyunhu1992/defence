@@ -17,11 +17,9 @@ import com.buaa.hxy.pojo.AttackGraphNodeType.Node;
 import com.buaa.hxy.pojo.AttackGraphNodeType.StateNode;
 
 public class GraphOutSimply {
-    public static void main(String[] args) {
-        GraphOutUnsimply p = new GraphOutUnsimply();
-        // p.start2();
-    }
-    public void start(ArrayList<Node> ag) {
+	static String targetName =  "Databaseserver";
+
+    public void start(ArrayList<Node> ag,int safePri,String safeEventHost) {
         GraphViz gv = new GraphViz();
         
         Map<Integer, String> num_Privilege = new HashMap();
@@ -55,40 +53,17 @@ public class GraphOutSimply {
         			if(node_num.containsKey(NodeName)){
         				agNode.setNodeName(NodeName);
         				agNode.setnodeNum(node_num.get(NodeName));
-//        				Iterator<ActionNode> itpost = ((HostPrivilege)agNode).getPostActionNode().iterator();
-//                    	while (itpost.hasNext()){
-//                    		Node acNode = itpost.next();
-//                    		if (acNode instanceof RemotePriEscaAttack){
-//                    			if (((RemotePriEscaAttack)acNode).getVulID().contains("zday")){
-//                    				gv.addln("" + num + "[style = filled,fillcolor = \".6 .2 .7\"]");
-//                    				System.out.println("zheliyouyige");
-//                    			}
-//                    		}
-//                    	}
+
         			}
         			else{
         				node_num.put(NodeName, num);
         				agNode.setNodeName(NodeName);
         				agNode.setnodeNum(num);
-//        				Iterator<ActionNode> itpost = ((HostPrivilege)agNode).getPostActionNode().iterator();
-//                    	while (itpost.hasNext()){
-//                    		Node acNode = itpost.next();
-//                    		if (acNode instanceof RemotePriEscaAttack){
-//                    			if (((RemotePriEscaAttack)acNode).getVulID().contains("zday")){
-//                    				gv.addln("" + num + "[style = filled,fillcolor = \".6 .2 .7\"]");
-//                    			}
-////                    			else{
-////                    				gv.addln("" + num);	
-////                    			}
-//                    		}
-////                    		else{
-////                    			gv.addln("" + num);
-////                    		}
-//                    	}
-        				//gv.addln("" + num);
+//        				
         				System.out.println(num);
         				System.out.println(NodeName);
-        				if (agNode.getnodeNum() == 3){
+//        				if (agNode.getnodeNum() == 3){
+        				if(((HostPrivilege) agNode).getDestiny().getComputerName().equals(targetName)){
 //        					gv.addln("" + num + "[style=filled, color=tomato]");
         					gv.addln("" + NodeName + "[style=filled, color=tomato]");
 
@@ -97,7 +72,7 @@ public class GraphOutSimply {
         				else if(agNode.getnodeNum() == 6 || agNode.getnodeNum()== 9){
         					gv.addln("" + NodeName + "[style=filled, color=gray90]");
         				}
-        				else if(agNode.getnodeNum() == 16){
+        				else if(((HostPrivilege) agNode).getDestiny().getComputerName().equals(safeEventHost)&&((HostPrivilege) agNode).getPriviledge()==safePri){
         					gv.addln("Evidence"+"[shape=octagon,fontcolor=white,style=filled, color=gray16]");
         					gv.addln("Evidence->"+NodeName);
         				} 
@@ -108,54 +83,7 @@ public class GraphOutSimply {
         				num +=1 ;
         			}
         		}
-//        		if(agNode instanceof HostService){
-//        			hsNum++;
-//        			String NodeName = "HostService: "+((HostService)agNode).getDestiny().getComputerName();
-//        			if(node_num.containsKey(NodeName)){
-//        				agNode.setNodeName(NodeName);
-//        				agNode.setnodeNum(node_num.get(NodeName));
-//        			}
-//        			else{
-//        				node_num.put(NodeName, num);
-//        				agNode.setNodeName(NodeName);
-//        				agNode.setnodeNum(num);
-//        				gv.addln(""+num);
-//        				num +=1 ;
-//        			}
-//        			
-//        		}
-//        		if(agNode instanceof HostVulnerability){
-//        			hvNum++;
-//        			String NodeName = "HostVulnerability: "+((HostVulnerability)agNode).getDestiny().getComputerName();
-//        			if(node_num.containsKey(NodeName)){
-//        				agNode.setNodeName(NodeName);
-//        				agNode.setnodeNum(node_num.get(NodeName));
-//        			}
-//        			else{
-//        				node_num.put(NodeName, num);
-//        				agNode.setNodeName(NodeName);
-//        				agNode.setnodeNum(num);
-//        				gv.addln(""+num);
-//        				num +=1 ;
-//        			}
-//        			
-//        		}
-//        		if(agNode instanceof Connection){
-//        			cNum++;
-//        			String NodeName = "Connection: "+((Connection)agNode).getSource().getComputerName()+", "+((Connection)agNode).getDestiny().getComputerName();
-//        			if(node_num.containsKey(NodeName)){
-//        				agNode.setNodeName(NodeName);
-//        				agNode.setnodeNum(node_num.get(NodeName));
-//        			}
-//        			else{
-//        				node_num.put(NodeName, num);
-//        				agNode.setNodeName(NodeName);
-//        				agNode.setnodeNum(num);
-//        				gv.addln(""+num);
-//        				num +=1 ;
-//        			}
-//        			
-//        		}
+
         	}
         	             	
         	if(agNode instanceof ActionNode){
@@ -311,37 +239,13 @@ public class GraphOutSimply {
 		}
         
         gv.addln(gv.end_graph());
-        //System.out.println(gv.getDotSource());
 
-
-//        String type = "png";
-        // String type = "dot";
-        // String type = "fig"; // open with xfig
-        // String type = "pdf";
-        // String type = "ps";
          String type = "svg"; // open with inkscape
-        // String type = "png";
-        // String type = "plain";
+
         File out = new File("/Users/hxy/Documents/workspace/defence/WebContent/static/images/systemmanager/outsimple." + type);
         gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type), out);
         
         
-//        File outfile = new File("/Users/hxy/Documents/�������/graphviz��ͼ/out_explain.txt"); 
-        
-//        try{
-//        	
-//        	FileWriter fileWriter = new FileWriter(outfile);
-//        	String s = new String();
-//        	
-//        	for(Map.Entry<String, Integer>entry : node_num.entrySet()){
-//        		s = s + entry.getValue()+": "+ entry.getKey()+"\r\n";
-//        	}
-//        	
-//        	fileWriter.write(s);  
-//            fileWriter.close();
-//        
-//        }catch(IOException e){
-//        	 e.printStackTrace(); 
-//        }        
+     
 }
 }

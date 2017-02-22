@@ -73,7 +73,7 @@ public class DefScheController {
 		String cmd = "/Library/anaconda/bin/python /Users/hxy/Documents/pytmatlab/defselect.py";
 		cmd = cmd +' '+pop+' '+gen+' '+num+' '+riskcon +' '+costcon;
 		
-		System.out.println(cmd);
+//		System.out.println(cmd);
 		Process pr = Runtime.getRuntime().exec(cmd);
 		pr.waitFor();  
 		

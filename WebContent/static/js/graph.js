@@ -19,36 +19,36 @@
 //		}
 //	});
 //}
-//function uploadRule(){
-//	var formData = new FormData($(form2)[0]);
-//	
-//	$.ajax({
-//		url :"../../fileupload/rule",
-//		data: formData,
-//		type : 'post',
-//		async: false,
-//		contentType:false,
-//		processData:false,
-//		success : function(res){
-//			alert(res);
-//		}
-//	});
-//}
-//function uploadEvi(){
-//	var formData = new FormData($(form3)[0]);
-//	
-//	$.ajax({
-//		url :"../../fileupload/evidence",
-//		data: formData,
-//		type : 'post',
-//		async: false,
-//		contentType:false,
-//		processData:false,
-//		success : function(res){
-//			alert(res);
-//		}
-//	});
-//}
+function uploadRule(){
+	var formData = new FormData($(form2)[0]);
+	
+	$.ajax({
+		url :"../../fileupload/rule",
+		data: formData,
+		type : 'post',
+		async: false,
+		contentType:false,
+		processData:false,
+		success : function(res){
+			alert(res);
+		}
+	});
+}
+function uploadEvi(){
+	var formData = new FormData($(form3)[0]);
+	
+	$.ajax({
+		url :"../../fileupload/evidence",
+		data: formData,
+		type : 'post',
+		async: false,
+		contentType:false,
+		processData:false,
+		success : function(res){
+			alert(res);
+		}
+	});
+}
 function uploadNetwork(){
 	var formData = new FormData($(form1)[0]);
 	

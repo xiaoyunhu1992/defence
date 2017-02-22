@@ -21,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.buaa.hxy.pojo.AttackerEntity;
 import com.buaa.hxy.pojo.ConnEntity;
 import com.buaa.hxy.pojo.HostEntity;
+import com.buaa.hxy.pojo.LperEntity;
+import com.buaa.hxy.pojo.RperEntity;
 import com.buaa.hxy.pojo.SafeEventEntity;
 import com.buaa.hxy.pojo.ServiceEntity;
 import com.buaa.hxy.pojo.VulnEntity;
@@ -34,6 +36,7 @@ public class UploadNetwrokController {
 	@Autowired
     @Qualifier("entityService")
 	private IEntityService entityservice;
+	
 	@RequestMapping(value = "/network", method = RequestMethod.POST)
 	@ResponseBody
 	public String upload(@RequestParam("file") MultipartFile file){
@@ -58,51 +61,51 @@ public class UploadNetwrokController {
         }
 	}
 	
-//	@RequestMapping(value = "/evidence", method = RequestMethod.POST)
-//	@ResponseBody
-//	public String uploadevi(@RequestParam("file") MultipartFile file){
-//		if (!file.isEmpty()) {
-//            try {
-//                byte[] bytes = file.getBytes();
-//                String path = "/Users/hxy/Documents/workspace/defence/WebContent/static";
-//                File networkfile = new File(path,"upload-evi.txt");
-//                BufferedOutputStream stream =
-//                        new BufferedOutputStream(new FileOutputStream(networkfile));
-//                stream.write(bytes);
-////                System.out.println(stream);
-//                stream.close();
-//                parseEvidence(path+"/upload-evi.txt");
-//                return "upload success";
-//            } catch (Exception e) {
-//                return e.getMessage();
-//            }
-//        } else {
-//            return "can't upload empty file";
-//        }
-//	}
-//	
-//	@RequestMapping(value = "/rule", method = RequestMethod.POST)
-//	@ResponseBody
-//	public String uploadrule(@RequestParam("file") MultipartFile file){
-//		if (!file.isEmpty()) {
-//            try {
-//                byte[] bytes = file.getBytes();
-//                String path = "/Users/hxy/Documents/workspace/defence/WebContent/static";
-//                File networkfile = new File(path,"upload-rule.txt");
-//                BufferedOutputStream stream =
-//                        new BufferedOutputStream(new FileOutputStream(networkfile));
-//                stream.write(bytes);
-////                System.out.println(stream);
-//                stream.close();
-//                parseRule(path+"/upload-rule.txt");
-//                return "upload success";
-//            } catch (Exception e) {
-//                return e.getMessage();
-//            }
-//        } else {
-//            return "can't upload empty file";
-//        }
-//	}
+	@RequestMapping(value = "/evidence", method = RequestMethod.POST)
+	@ResponseBody
+	public String uploadevi(@RequestParam("file") MultipartFile file){
+		if (!file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+                String path = "/Users/hxy/Documents/workspace/defence/WebContent/static";
+                File networkfile = new File(path,"upload-evi.txt");
+                BufferedOutputStream stream =
+                        new BufferedOutputStream(new FileOutputStream(networkfile));
+                stream.write(bytes);
+//                System.out.println(stream);
+                stream.close();
+                parseEvidence(path+"/upload-evi.txt");
+                return "upload success";
+            } catch (Exception e) {
+                return e.getMessage();
+            }
+        } else {
+            return "can't upload empty file";
+        }
+	}
+	
+	@RequestMapping(value = "/rule", method = RequestMethod.POST)
+	@ResponseBody
+	public String uploadrule(@RequestParam("file") MultipartFile file){
+		if (!file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+                String path = "/Users/hxy/Documents/workspace/defence/WebContent/static";
+                File networkfile = new File(path,"upload-rule.txt");
+                BufferedOutputStream stream =
+                        new BufferedOutputStream(new FileOutputStream(networkfile));
+                stream.write(bytes);
+//                System.out.println(stream);
+                stream.close();
+                parseRule(path+"/upload-rule.txt");
+                return "upload success";
+            } catch (Exception e) {
+                return e.getMessage();
+            }
+        } else {
+            return "can't upload empty file";
+        }
+	}
 	
 	public void parseNetwork(String path) {
         try {
@@ -192,80 +195,97 @@ public class UploadNetwrokController {
         	e.printStackTrace();
         }
 	}
-//	public void parseEvidence(String path) {
-//        try {
-//        	
-//        	// read file content from file
-//        	ArrayList<String> networktext = new ArrayList<String>();
-//        	FileReader reader = new FileReader(path);
-//        	BufferedReader br = new BufferedReader(reader);
-//        	String str = null;
-//        	while((str = br.readLine()) != null) {
-//        		networktext.add(str);
-////        		System.out.print(str);
-//        	}
-//        	this.entityservice.delSafeEvent();
-//        	for (String item : networktext){
-//            	this.entityservice.delSafeEvent();
-//        		String[] itempart = item.split("\\(|\\)");
-////         		System.out.print(itempart[0]+'\n');
-////        		System.out.print(itempart[1]+'\n');
-//        		if(itempart[0].equals("safeEvent")){
-//        			String[] element = itempart[1].split(",");
-//        			SafeEventEntity safeEvent = new SafeEventEntity();
-//        			safeEvent.sethostName(element[0]);
-//        			safeEvent.setserviceName(element[1]);
-//        			safeEvent.setpriviledge(element[2]);
-//        			this.entityservice.setSafeEventEntity(safeEvent);
-//        		}
-//        		
-//        	}
-//        br.close();
-//        reader.close();
-//        }
-//        catch(FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        catch(IOException e) {
-//        	e.printStackTrace();
-//        }
-//	}
-//	public void parseRule(String path) {
-//        try {
-//        	
-//        	// read file content from file
-//        	ArrayList<String> networktext = new ArrayList<String>();
-//        	FileReader reader = new FileReader(path);
-//        	BufferedReader br = new BufferedReader(reader);
-//        	String str = null;
-//        	while((str = br.readLine()) != null) {
-//        		networktext.add(str);
-////        		System.out.print(str);
-//        	}
-//        	
-//        	for (String item : networktext){
-//            	this.entityservice.delSafeEvent();
-//        		String[] itempart = item.split("\\(|\\)");
-////         		System.out.print(itempart[0]+'\n');
-////        		System.out.print(itempart[1]+'\n');
-//        		if(itempart[0].equals("rper")){
-//        			String[] element = itempart[1].split(",");
-//        			SafeEventEntity safeEvent = new SafeEventEntity();
-//        			safeEvent.sethostName(element[0]);
-//        			safeEvent.setserviceName(element[1]);
-//        			safeEvent.setpriviledge(element[2]);
-//        			this.entityservice.setSafeEventEntity(safeEvent);
-//        		}
-//        		
-//        	}
-//        br.close();
-//        reader.close();
-//        }
-//        catch(FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        catch(IOException e) {
-//        	e.printStackTrace();
-//        }
-//	}
+	public void parseEvidence(String path) {
+        try {
+        	
+        	// read file content from file
+        	ArrayList<String> networktext = new ArrayList<String>();
+        	FileReader reader = new FileReader(path);
+        	BufferedReader br = new BufferedReader(reader);
+        	String str = null;
+        	while((str = br.readLine()) != null) {
+        		networktext.add(str);
+//        		System.out.print(str);
+        	}
+        	this.entityservice.delSafeEvent();
+        	for (String item : networktext){
+        		String[] itempart = item.split("\\(|\\)");
+//         		System.out.print(itempart[0]+'\n');
+//        		System.out.print(itempart[1]+'\n');
+        		if(itempart[0].equals("safeEvent")){
+        			String[] element = itempart[1].split(",");
+        			SafeEventEntity safeEvent = new SafeEventEntity();
+        			safeEvent.sethostName(element[0]);
+        			safeEvent.setserviceName(element[1]);
+        			safeEvent.setpriviledge(element[2]);
+        			this.entityservice.setSafeEventEntity(safeEvent);
+        		}
+        		
+        	}
+        br.close();
+        reader.close();
+        }
+        catch(FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch(IOException e) {
+        	e.printStackTrace();
+        }
+	}
+	public void parseRule(String path) {
+        try {
+        	
+        	// read file content from file
+        	ArrayList<String> networktext = new ArrayList<String>();
+        	FileReader reader = new FileReader(path);
+        	BufferedReader br = new BufferedReader(reader);
+        	String str = null;
+        	while((str = br.readLine()) != null) {
+        		networktext.add(str);
+        		System.out.print(str+"\n");
+        	}
+        	this.entityservice.delRper();
+        	this.entityservice.delLper();
+        	for (String item : networktext){
+        		String[] itempart = item.split("\\(|\\)");
+         		System.out.print(itempart[0]+'\n');
+        		System.out.print(itempart[1]+'\n');
+        		if(itempart[0].equals("rper")){
+        			String[] element = itempart[1].split(",");
+        			RperEntity rper = new RperEntity();
+        			rper.setserviceName(element[0]);
+        			rper.setport(element[1]);
+        			rper.setprotocol(element[2]);
+        			rper.setsp(element[3]);
+        			rper.setversion(element[4]);
+        			rper.setvulID(element[5]);
+        			rper.setorp(element[6]);
+        			rper.settarp(element[7]);
+        			this.entityservice.setRperEntity(rper);
+        		}
+        		else if(itempart[0].equals("lper")){
+        			String[] element=itempart[1].split(",");
+        			LperEntity lper = new LperEntity();
+        			lper.setserviceName(element[0]);
+        			lper.setport(element[1]);
+        			lper.setprotocol(element[2]);
+        			lper.setsp(element[3]);
+        			lper.setversion(element[4]);
+        			lper.setvulID(element[5]);
+        			lper.setorp(element[6]);
+        			lper.settarp(element[7]);
+        			this.entityservice.setLperEntity(lper);
+        		}
+        		
+        	}
+        br.close();
+        reader.close();
+        }
+        catch(FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch(IOException e) {
+        	e.printStackTrace();
+        }
+	}
 }

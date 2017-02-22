@@ -1,27 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.buaa.hxy.dao.ISafeEventEntityDao" >
-  <resultMap id="BaseResultMap" type="com.buaa.hxy.pojo.SafeEventEntity" >
-    <id column="eid" property="eid" jdbcType="INTEGER" />
-    <result column="hostName" property="hostName" jdbcType="VARCHAR" />
+<mapper namespace="com.buaa.hxy.dao.IRperEntityDao" >
+  <resultMap id="BaseResultMap" type="com.buaa.hxy.pojo.RperEntity" >
+    <id column="rid" property="rid" jdbcType="INTEGER" />
     <result column="serviceName" property="serviceName" jdbcType="VARCHAR" />
-    <result column="priviledge" property="priviledge" jdbcType="VARCHAR" />
+    <result column="port" property="port" jdbcType="VARCHAR" />
+    <result column="protocol" property="protocol" jdbcType="VARCHAR" />
+    <result column="sp" property="sp" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="VARCHAR" />
+    <result column="vulID" property="vulID" jdbcType="VARCHAR" />
+    <result column="orp" property="orp" jdbcType="VARCHAR" />
+    <result column="tarp" property="tarp" jdbcType="VARCHAR" />
+    
   </resultMap>
   <sql id="Base_Column_List" >
-    aid, hostName,serviceName,priviledge
+    rid,serviceName,port,protocol,sp,version,vulID,orp,tarp
   </sql>
-   <insert id="setSafeEventEntity" parameterType="com.buaa.hxy.pojo.SafeEventEntity" >
-    insert into safeEvent (hostName,serviceName,priviledge)
-    values (#{hostName,jdbcType=VARCHAR},#{serviceName,jdbcType=VARCHAR}, #{priviledge,jdbcType=VARCHAR})
+   <insert id="setRperEntity" parameterType="com.buaa.hxy.pojo.RperEntity" >
+    insert into rper (serviceName,port,protocol,sp,version,vulID,orp,tarp)
+    values (#{serviceName,jdbcType=VARCHAR},#{port,jdbcType=VARCHAR},
+    #{protocol,jdbcType=VARCHAR},#{sp,jdbcType=VARCHAR},
+    #{version,jdbcType=VARCHAR},#{vulID,jdbcType=VARCHAR},#{orp,jdbcType=VARCHAR},
+    #{tarp,jdbcType=VARCHAR})
   </insert>
-  <delete id="delSafeEvent">
-  delete from safeEvent
+  <delete id="delRper">
+  delete from rper
   </delete>
-  <select id = "getSafeEventEntity" resultMap="BaseResultMap">
-  select * from safeEvent
+  <select id="getRperEntityList" resultMap="BaseResultMap">
+  select * from rper
   </select>
+  <!-- <select id = "getAttackerList" resultMap="BaseResultMap" parameterType="java.lang.String">
+  select * from attacker
+  </select> -->
  <!--  <select id="setConnEntity" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select * from schemes
+    select * from scheme
   </select> -->
 <!--   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from user_t

@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.buaa.hxy.pojo.AttackerEntity;
 import com.buaa.hxy.pojo.ConnEntity;
 import com.buaa.hxy.pojo.HostEntity;
+import com.buaa.hxy.pojo.LperEntity;
+import com.buaa.hxy.pojo.RperEntity;
+import com.buaa.hxy.pojo.SafeEventEntity;
 import com.buaa.hxy.pojo.ServiceEntity;
 import com.buaa.hxy.pojo.User;
 import com.buaa.hxy.pojo.VulnEntity;
@@ -63,39 +66,83 @@ public class AttackGraph {
 	static int sim;//0表示未化简，1表示化简后
 	static ArrayList<Node> ag = new ArrayList<Node>();
 	static ArrayList<Node> tempAG = new ArrayList<Node>();		
-//	InitialFact factList = new InitialFact();
-//	ArrayList<Computer> computerList = factList.returnComputerList();
-//	ArrayList <Attacker> attackerList = factList.returnAttackerList();
-	RemotePriEscaRule rper = new RemotePriEscaRule();
-	ArrayList<RemotePriEscaRule> rperList = rper.initRPER();
-	LocalPriEscaRule lper = new LocalPriEscaRule();
-	ArrayList<LocalPriEscaRule> lperList = lper.initLPER();
-//	ArrayList<Attacker> attackerList = initFactAttacker();
 
     @RequestMapping(value ="/generate",method = RequestMethod.POST)
 	@ResponseBody
 	public void generate(HttpServletRequest req){
     	sim = Integer.valueOf(req.getParameter("simply").trim()).intValue();
-//    	InitialFact factList = new InitialFact();
-//    	ArrayList<Computer> computerList = factList.returnComputerList();
-//    	ArrayList <Attacker> attackerList = factList.returnAttackerList();
-
     	ArrayList<Computer> computerList = initComputer();
     	ArrayList<Attacker> attackerList = initFactAttacker();
-
+    	ArrayList<LocalPriEscaRule> lperlist = initLperlist();
+    	ArrayList<RemotePriEscaRule> rperList = initRperlist();
     	HostPrivilege targetNode = AttackGraph.getTargetNode(computerList);//获取目标状态；				
-		getAttackGraph(targetNode,attackerList,computerList);
-		
-		
+		getAttackGraph(targetNode,attackerList,computerList,lperlist,rperList);
+		String evidencehost = null;
+		int evidencepri =0;
+		List<SafeEventEntity> safeentity = this.entityservice.getSafeEventEntity();
+		if(safeentity!=null){
+			for(SafeEventEntity sf:safeentity){
+				evidencehost=sf.gethostName();
+				if(sf.getpriviledge().equals("root")){
+					evidencepri=2;
+				}else if(sf.getpriviledge().equals("user")){
+					evidencepri=1;
+				}
+			}
+		}
 		if (sim == 1){
 			GraphOutSimply newGraph = new GraphOutSimply();
-			newGraph.start(ag);
+			
+			newGraph.start(ag,evidencepri,evidencehost);
 		}
 		else{
 			GraphOutUnsimply newGraph = new GraphOutUnsimply();
-			newGraph.start(ag);
+			
+			newGraph.start(ag,evidencepri,evidencehost);
 		}
 	}
+    public ArrayList<RemotePriEscaRule> initRperlist(){
+    	ArrayList<RemotePriEscaRule> rperlist  = new ArrayList<RemotePriEscaRule>();
+    	List<RperEntity> rperentitylist = this.entityservice.getRperEntityList();
+    	for (RperEntity rperentity : rperentitylist){
+    		RemotePriEscaRule rper = new RemotePriEscaRule();
+    		rper.getHs().getService().setServeceName(rperentity.getServiceName());
+    		rper.getHs().getService().setPort(rperentity.getport());
+    		rper.getHs().getService().setProtocal(rperentity.getprotocol());
+    		rper.getHs().getService().setPrivilege(0);
+    		rper.getHs().getService().setVersion(rperentity.getversion());
+    		rper.getHv().setVulID(rperentity.getvulID());
+    		rper.getHv().setServiceName(rperentity.getServiceName());
+    		rper.getCo().setProt(rperentity.getport());
+    		rper.getCo().setProtcal(rperentity.getprotocol());
+    		rper.getHp().setPriviledge(Integer.valueOf(rperentity.getorp()).intValue());
+    		rper.getPea().setVulID(rperentity.getvulID());
+    		rper.getThp().setPriviledge(Integer.valueOf(rperentity.getarp()).intValue());
+    		rperlist.add(rper);
+    		
+    	}
+    	return rperlist;
+    }
+    public ArrayList<LocalPriEscaRule> initLperlist(){
+    	ArrayList<LocalPriEscaRule> lperlist  = new ArrayList<LocalPriEscaRule>();
+    	List<LperEntity> lperentitylist = this.entityservice.getLperEntityList();
+    	for (LperEntity lperentity : lperentitylist){
+    		LocalPriEscaRule lper = new LocalPriEscaRule();
+    		lper.getHs().getService().setServeceName(lperentity.getServiceName());
+    		lper.getHs().getService().setPort(lperentity.getport());
+    		lper.getHs().getService().setProtocal(lperentity.getprotocol());
+    		lper.getHs().getService().setPrivilege(0);
+    		lper.getHs().getService().setVersion(lperentity.getversion());
+    		lper.getHv().setVulID(lperentity.getvulID());
+    		lper.getHv().setServiceName(lperentity.getServiceName());
+    		lper.getHp().setPriviledge(Integer.valueOf(lperentity.getorp()).intValue());
+    		lper.getPea().setVulID(lperentity.getvulID());
+    		lper.getThp().setPriviledge(Integer.valueOf(lperentity.getarp()).intValue());
+    		lperlist.add(lper);
+    		
+    	}
+    	return lperlist;
+    }
     public ArrayList<Computer> initComputer(){
     	ArrayList<Computer> c = new ArrayList<Computer>();
     	List<HostEntity> hostlist = this.entityservice.getHostList();
@@ -129,7 +176,7 @@ public class AttackGraph {
     		c.add(com);
     	}
     	for(Computer com :c){
-    		System.out.println("source "+com.getComputerName());
+//    		System.out.println("source "+com.getComputerName());
 //    		ArrayList<Connection> connectionlist = new ArrayList<Connection>();
     		List<ConnEntity> connentitylist = this.entityservice.getConnEntityList(com.getComputerName());
     		for (ConnEntity connentity:connentitylist){
@@ -181,7 +228,7 @@ public class AttackGraph {
 		}
 		return a;
     }
-    public boolean getAttackGraph(Node targetNode,ArrayList<Attacker> attackerList,ArrayList<Computer> computerList ){
+    public boolean getAttackGraph(Node targetNode,ArrayList<Attacker> attackerList,ArrayList<Computer> computerList,ArrayList<LocalPriEscaRule> lperlist,ArrayList<RemotePriEscaRule> rperList ){
 	
     	//表示这次调用是否完成攻击
     	boolean existAccess = false;
@@ -209,7 +256,7 @@ public class AttackGraph {
 					String vulID = (String)vulListIt.next();
 					
 					
-					AttackRule ar = getAttackRule(vulID,((HostPrivilege)targetNode).getPriviledge(),rperList,lperList);
+					AttackRule ar = getAttackRule(vulID,((HostPrivilege)targetNode).getPriviledge(),rperList,lperlist);
 					
 					if(ar == null){
 						getAccess = false;
@@ -302,7 +349,7 @@ public class AttackGraph {
 							if(HpintempAGFlag == false){//无环
 																	
 								tempAG.addAll(inList);
-								getAccess = getAttackGraph(hp,attackerList,computerList);
+								getAccess = getAttackGraph(hp,attackerList,computerList,lperlist,rperList);
 								existAccess = getAccess || existAccess;
 								
 								if(getAccess == false){//
@@ -389,7 +436,7 @@ public class AttackGraph {
 								
 						if(HpintempAGFlag == false){//无环
 							tempAG.addAll(inList);
-							getAccess = getAttackGraph(hp,attackerList,computerList);
+							getAccess = getAttackGraph(hp,attackerList,computerList,lperlist,rperList);
 							existAccess = getAccess || existAccess;
 								
 							if(getAccess == false){//
@@ -485,7 +532,7 @@ static HostPrivilege getTargetNode(ArrayList<Computer> computerList) {
 
 		Computer computer = (Computer) it.next();
 		computerName = computer.getComputerName();
-		System.out.println(computerName);
+//		System.out.println(computerName);
 		if (computerName.equals(targetName)) {
 			t.setDestiny(computer);
 			t.setPriviledge(privilege);
@@ -554,18 +601,18 @@ static ArrayList<Connection> getRCon(ArrayList<Computer> computerList,Computer d
 	ArrayList<Connection> rco = new ArrayList<Connection>();
 	while(it.hasNext()){
 		Computer source = (Computer) it.next();
-		System.out.print("getRconSource:"+source.getComputerName()+'\n');
+//		System.out.print("getRconSource:"+source.getComputerName()+'\n');
 		ArrayList<Connection> coL = source.getConnectionList();
-		System.out.println(coL.size());
+//		System.out.println(coL.size());
 		Iterator itc = coL.iterator();
 		while(itc.hasNext()){
 			Connection co = (Connection) itc.next();
-			System.out.print("getRconDes:"+co.getDestiny().getComputerName()+'\n');
+//			System.out.print("getRconDes:"+co.getDestiny().getComputerName()+'\n');
 
 			if(co.getDestiny().getComputerName().equals(destiny.getComputerName())&&
 			co.getDestiny().getIPAddress().equals(destiny.getIPAddress())&&
 			co.getDestiny().getMask().equals(destiny.getMask())){
-				System.out.println(co.getSource().getComputerName()	);
+//				System.out.println(co.getSource().getComputerName()	);
 				rco.add(co);
 			}
 		}

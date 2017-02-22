@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.buaa.hxy.dao.IAttackerEntityDao;
 import com.buaa.hxy.dao.IConnEntityDao;
 import com.buaa.hxy.dao.IHostEntityDao;
+import com.buaa.hxy.dao.ILperEntityDao;
+import com.buaa.hxy.dao.IRperEntityDao;
 import com.buaa.hxy.dao.ISafeEventEntityDao;
 import com.buaa.hxy.dao.ISchemeDao;
 import com.buaa.hxy.dao.IServiceEntityDao;
@@ -17,6 +19,8 @@ import com.buaa.hxy.dao.IVulnEntityDao;
 import com.buaa.hxy.pojo.AttackerEntity;
 import com.buaa.hxy.pojo.ConnEntity;
 import com.buaa.hxy.pojo.HostEntity;
+import com.buaa.hxy.pojo.LperEntity;
+import com.buaa.hxy.pojo.RperEntity;
 import com.buaa.hxy.pojo.SafeEventEntity;
 import com.buaa.hxy.pojo.Scheme;
 import com.buaa.hxy.pojo.ServiceEntity;
@@ -40,6 +44,30 @@ public class EntityServiceImpl implements IEntityService {
     private IAttackerEntityDao attackerentitydao;
     @Resource
     private ISafeEventEntityDao safeevententitydao;
+    @Resource
+    private IRperEntityDao rperentitydao;
+    @Resource
+    private ILperEntityDao lperentitydao;
+    @Override
+    public void setLperEntity(LperEntity lper){
+    	this.lperentitydao.setLperEntity(lper);
+    }
+    public void delLper(){
+    	this.lperentitydao.delLper();
+    }
+    public List<LperEntity> getLperEntityList(){
+    	return this.lperentitydao.getLperEntityList();
+    }
+    @Override
+    public List<RperEntity> getRperEntityList(){
+    	return this.rperentitydao.getRperEntityList();
+    }
+    public void setRperEntity(RperEntity rper){
+    	this.rperentitydao.setRperEntity(rper);
+    }
+    public void delRper(){
+    	this.rperentitydao.delRper();
+    }
     @Override  
     public void setHostEntity(HostEntity host) {  
         // TODO Auto-generated method stub  
@@ -106,6 +134,9 @@ public class EntityServiceImpl implements IEntityService {
     }
     public void delSafeEvent(){
     	this.safeevententitydao.delSafeEvent();
+    }
+    public List<SafeEventEntity> getSafeEventEntity(){
+    	return this.safeevententitydao.getSafeEventEntity();
     }
   
 }  

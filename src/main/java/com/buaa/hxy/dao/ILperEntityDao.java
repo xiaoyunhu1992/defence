@@ -6,20 +6,22 @@ import org.springframework.stereotype.Repository;
 
 import com.buaa.hxy.pojo.AttackerEntity;
 import com.buaa.hxy.pojo.ConnEntity;
-import com.buaa.hxy.pojo.SafeEventEntity;
+import com.buaa.hxy.pojo.LperEntity;
+import com.buaa.hxy.pojo.RperEntity;
 
 
 @Repository
-public interface ISafeEventEntityDao {
+public interface ILperEntityDao {
 //	int deleteByPrimaryKey(String userName);
 //
 //    int insert(User record);
 
 //    int insertSelective(User record);
 
-    void setSafeEventEntity(SafeEventEntity safeEvent);//insert an connection item into database
-    void delSafeEvent();
-    List<SafeEventEntity> getSafeEventEntity();
+    void setLperEntity(LperEntity lper );//insert an connection item into database
+    void delLper();
+    List<LperEntity> getLperEntityList();
+//    List<AttackerEntity> getAttackerList();
     
 //    String getConSource();
 //    String getConDes();

@@ -7,11 +7,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.transform.Source;
 
 import org.omg.PortableServer.AdapterActivator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.buaa.hxy.pojo.fact.RemotePriEscaRule;
 import com.buaa.hxy.pojo.subNodeType.Connection;
@@ -20,6 +23,8 @@ import com.buaa.hxy.pojo.subNodeType.HostService;
 import com.buaa.hxy.pojo.subNodeType.HostVulnerability;
 import com.buaa.hxy.pojo.subNodeType.LocalPriEscaAttack;
 import com.buaa.hxy.pojo.subNodeType.RemotePriEscaAttack;
+import com.buaa.hxy.service.IEntityService;
+import com.buaa.hxy.pojo.SafeEventEntity;
 import com.buaa.hxy.pojo.AttackGraphNodeType.ActionNode;
 import com.buaa.hxy.pojo.AttackGraphNodeType.Node;
 import com.buaa.hxy.pojo.AttackGraphNodeType.StateNode;
@@ -29,14 +34,15 @@ import com.buaa.hxy.pojo.FClass.Service;
 
 
 public class GraphOutUnsimply {
-        public static void main(String[] args) {
-                GraphOutUnsimply p = new GraphOutUnsimply();
-                // p.start2();
-        }
+	@Autowired
+    @Qualifier("entityService")
+	private IEntityService entityservice;
+	static String targetName =  "Databaseserver";
 
 
-        public void start(ArrayList<Node> ag) {
-                GraphViz gv = new GraphViz();
+        public void start(ArrayList<Node> ag,int safePri,String safeEventHost) {
+       	
+        	GraphViz gv = new GraphViz();
                 
                 Map<Integer, String> num_Privilege = new HashMap();
                 num_Privilege.put(0, "guest");
@@ -73,11 +79,19 @@ public class GraphOutUnsimply {
                 				node_num.put(NodeName, num);
                 				agNode.setNodeName(NodeName);
                 				agNode.setnodeNum(num);
-                				System.out.println(num);
-                				System.out.println(NodeName);
-                				if (agNode.getnodeNum() == 6){
+//                				System.out.println(num);
+//                				System.out.println(NodeName);
+//                				if (agNode.getnodeNum() == 6){
+                				if(((HostPrivilege) agNode).getDestiny().getComputerName().equals(targetName)){
+                					System.out.println(((HostPrivilege) agNode).getDestiny().getComputerName());
                 					gv.addln("" + NodeName + "[style=filled, color=tomato]");
 
+                				}
+                				else if(((HostPrivilege) agNode).getDestiny().getComputerName().equals(safeEventHost)&&((HostPrivilege) agNode).getPriviledge()==safePri){
+                					gv.addln("Evidence"+"[shape=octagon,fontcolor=white,style=filled, color=gray16]");
+                					gv.addln(""+NodeName);
+                					gv.addln("Evidence->"+NodeName);
+                					
                 				}
                 				else{
                 					gv.addln(""+NodeName);
@@ -287,26 +301,9 @@ public class GraphOutUnsimply {
 
                 String type = "svg";
                 File out = new File("/Users/hxy/Documents/workspace/defence/WebContent/static/images/systemmanager/outunsimple." + type);
-                gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type), out);
-                
-                
-//                File outfile = new File("/Users/hxy/Documents/�������/graphviz��ͼ/out_explainUnsimple.txt"); 
-                
-//                try{
-//                	
-//                	FileWriter fileWriter = new FileWriter(outfile);
-//                	String s = new String();
-//                	
-//                	for(Map.Entry<String, Integer>entry : node_num.entrySet()){
-//                		s = s + entry.getValue()+": "+ entry.getKey()+"\r\n";
-//                	}
-//                	
-//                	fileWriter.write(s);  
-//                    fileWriter.close();
-//                
-//                }catch(IOException e){
-//                	 e.printStackTrace(); 
-//                }               
+                gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type), out);       
+          
         }
+        
 
 }
