@@ -1,5 +1,6 @@
 package com.buaa.hxy.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,7 @@ import com.buaa.hxy.pojo.AttackerEntity;
 import com.buaa.hxy.pojo.ConnEntity;
 import com.buaa.hxy.pojo.HostEntity;
 import com.buaa.hxy.pojo.LperEntity;
+import com.buaa.hxy.pojo.RiskEntity;
 import com.buaa.hxy.pojo.RperEntity;
 import com.buaa.hxy.pojo.SafeEventEntity;
 import com.buaa.hxy.pojo.ServiceEntity;
@@ -69,7 +72,7 @@ public class AttackGraph {
 
     @RequestMapping(value ="/generate",method = RequestMethod.POST)
 	@ResponseBody
-	public void generate(HttpServletRequest req){
+	public void generate(HttpServletRequest req) throws IOException, InterruptedException{
     	sim = Integer.valueOf(req.getParameter("simply").trim()).intValue();
     	ArrayList<Computer> computerList = initComputer();
     	ArrayList<Attacker> attackerList = initFactAttacker();
@@ -992,7 +995,45 @@ static ArrayList<Node> mergeList(ArrayList<Node> inList, ArrayList<Node> compLis
 	return compList;
 }
   
-    
+	@RequestMapping(value ="/initrisk",method = RequestMethod.POST)
+	@ResponseBody
+	public Map initrisk(HttpServletRequest req) throws IOException, InterruptedException{
+		List<RiskEntity> risk =  this.entityservice.getRiskList();
+		Map map=new HashMap();
+		ArrayList<String> name = new ArrayList<String>();
+		name.add("Status_Malicious_root");
+		name.add("Status_DNSserver_root");
+		name.add("Status_User_2_root");
+		name.add("Status_User_3_root");
+		name.add("Status_User_1_root");
+		name.add("Status_Webserver_user");
+		name.add("Status_SMTPserver_root");
+		name.add("Status_Webserver_root");
+		name.add("Status_FTPserver_1_root");
+		name.add("Status_Databaseserver_root");
+		float riskvalue = 0;
+		ArrayList<Float> pro = new ArrayList<Float>();
+		for (RiskEntity item:risk){
+			pro.add(item.getone());
+			pro.add(item.gettwo());
+			pro.add(item.getthree());
+			pro.add(item.getfour());
+			pro.add(item.getfive());
+			pro.add(item.getsix());
+			pro.add(item.getseven());
+			pro.add(item.geteight());
+			pro.add(item.getnine());
+			pro.add(item.getten());
+			riskvalue=item.getrisk();
+		}
+		
+		map.put("pro", pro);
+		map.put("name", name);
+		map.put("riskvalue", riskvalue);
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.writeValueAsString(map);
+		return map;
+	}
     
     
     

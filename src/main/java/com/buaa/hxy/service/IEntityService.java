@@ -7,6 +7,7 @@ import com.buaa.hxy.pojo.AttackerEntity;
 import com.buaa.hxy.pojo.ConnEntity;
 import com.buaa.hxy.pojo.HostEntity;
 import com.buaa.hxy.pojo.LperEntity;
+import com.buaa.hxy.pojo.RiskEntity;
 import com.buaa.hxy.pojo.RperEntity;
 import com.buaa.hxy.pojo.SafeEventEntity;
 import com.buaa.hxy.pojo.ServiceEntity;
@@ -40,4 +41,5 @@ public interface IEntityService {
 	public List<LperEntity> getLperEntityList();
 	public List<RperEntity> getRperEntityList();
 	public List<SafeEventEntity> getSafeEventEntity();
+	public List<RiskEntity> getRiskList();
 }

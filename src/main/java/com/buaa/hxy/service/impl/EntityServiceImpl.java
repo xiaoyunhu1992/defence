@@ -10,6 +10,7 @@ import com.buaa.hxy.dao.IAttackerEntityDao;
 import com.buaa.hxy.dao.IConnEntityDao;
 import com.buaa.hxy.dao.IHostEntityDao;
 import com.buaa.hxy.dao.ILperEntityDao;
+import com.buaa.hxy.dao.IRiskDao;
 import com.buaa.hxy.dao.IRperEntityDao;
 import com.buaa.hxy.dao.ISafeEventEntityDao;
 import com.buaa.hxy.dao.ISchemeDao;
@@ -20,6 +21,7 @@ import com.buaa.hxy.pojo.AttackerEntity;
 import com.buaa.hxy.pojo.ConnEntity;
 import com.buaa.hxy.pojo.HostEntity;
 import com.buaa.hxy.pojo.LperEntity;
+import com.buaa.hxy.pojo.RiskEntity;
 import com.buaa.hxy.pojo.RperEntity;
 import com.buaa.hxy.pojo.SafeEventEntity;
 import com.buaa.hxy.pojo.Scheme;
@@ -48,6 +50,8 @@ public class EntityServiceImpl implements IEntityService {
     private IRperEntityDao rperentitydao;
     @Resource
     private ILperEntityDao lperentitydao;
+    @Resource
+    private IRiskDao riskdao;
     @Override
     public void setLperEntity(LperEntity lper){
     	this.lperentitydao.setLperEntity(lper);
@@ -138,5 +142,7 @@ public class EntityServiceImpl implements IEntityService {
     public List<SafeEventEntity> getSafeEventEntity(){
     	return this.safeevententitydao.getSafeEventEntity();
     }
-  
+    public List<RiskEntity> getRiskList(){
+    	return this.riskdao.getRiskList();
+    }
 }  

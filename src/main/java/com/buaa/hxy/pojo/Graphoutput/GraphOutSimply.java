@@ -19,9 +19,9 @@ import com.buaa.hxy.pojo.AttackGraphNodeType.StateNode;
 public class GraphOutSimply {
 	static String targetName =  "Databaseserver";
 
-    public void start(ArrayList<Node> ag,int safePri,String safeEventHost) {
+    public void start(ArrayList<Node> ag,int safePri,String safeEventHost) throws IOException, InterruptedException {
         GraphViz gv = new GraphViz();
-        
+        String evi ="0";
         Map<Integer, String> num_Privilege = new HashMap();
         num_Privilege.put(0, "guest");
         num_Privilege.put(1, "user");
@@ -105,21 +105,12 @@ public class GraphOutSimply {
             				agNode.setnodeNum(num);
             				gv.addln(""+num+"[shape = box,style = filled,fillcolor = \".6 .2 .7\"]");
             				num +=1 ;
-            				
-//            				Iterator<StateNode> itpost = ((ActionNode)agNode).getPreStateNode().iterator();
-//                        	while(itpost.hasNext()){
-//                        		Node desNode = itpost.next();
-//                        		if(desNode instanceof HostPrivilege){
-//                        			gv.addln("" + desNode.getnodeNum() + "[style = filled,fillcolor = \".6 .2 .7\"]");
-//                        		}
-//                        	}
                         	
             			}
         			}
         			
         			else{
         				
-            			//NodeName = "rpea: "+((RemotePriEscaAttack)agNode).getzdayflag()+", "+((RemotePriEscaAttack)agNode).getAttacker().getAttackerComputer().getComputerName()+", "+((RemotePriEscaAttack)agNode).getDestiny().getComputerName();
             			NodeName = "rpea_"+((RemotePriEscaAttack)agNode).getVulID()+""+((RemotePriEscaAttack)agNode).getDestiny().getComputerName();
             			
             			if(node_num.containsKey(NodeName)){
@@ -207,7 +198,6 @@ public class GraphOutSimply {
             		String desName = desNode.getNodeName();
             		int desNum = desNode.getnodeNum();
             		
-//            		newOrder = "" + sourceNum + "->" + desNum +";";
             		newOrder = sourceName + "->" + desName +";";
             		fileOutPut = sourceName + "->" + desName +";";
             		
@@ -245,7 +235,17 @@ public class GraphOutSimply {
         File out = new File("/Users/hxy/Documents/workspace/defence/WebContent/static/images/systemmanager/outsimple." + type);
         gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type), out);
         
+        if (safeEventHost!=null){
+        	evi="1";
+        }
+        String cmd = "/Library/anaconda/bin/python /Users/hxy/Documents/pytmatlab/testpy.py";
         
+    	cmd = cmd +' '+evi;
+    	
+    	Process pr = Runtime.getRuntime().exec(cmd);
+    	pr.waitFor();
+    	
      
-}
+    }
+	  
 }

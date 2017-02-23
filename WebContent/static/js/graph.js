@@ -49,6 +49,7 @@ function uploadEvi(){
 		}
 	});
 }
+
 function uploadNetwork(){
 	var formData = new FormData($(form1)[0]);
 	
@@ -64,7 +65,28 @@ function uploadNetwork(){
 		}
 	});
 }
-
+function geninitRisk(){
+	$.ajax({
+		url :"../../attackgraph/initrisk",
+		type : 'post',
+		data:{
+		},
+		async: true,
+		success : function(res){
+			$("#tablebody").empty();
+			$("#table1").show();
+			var pro = res["pro"];
+			var name = res["name"];
+			var risk = res["riskvalue"];
+			
+			for (var i=0;i<name.length;i++){
+				var divstring ="<tr>"+"<td>"+name[i]+"</td>"+"<td>"+pro[i]+"</td>"+"</tr>";
+				$("#tablebody").append(divstring);
+			}
+			$("#tablebody").append("<tr> <td>整体风险值</td> <td>"+risk+"</td></tr>");
+		}
+	});
+}
 
 function genUnsimAg(){
 	//	var removeObj = document.getElementById('submit');
@@ -77,6 +99,7 @@ function genUnsimAg(){
 		},
 		async: true,
 		success : function(){
+			$("#table1").hide();
 			//alert("success");
 //			$("#out").attr("src","../../static/images/systemmanager/outunsimple.gif");
 //			$("#out").attr("src","http://localhost:9999/outunsimple.png");
@@ -95,6 +118,7 @@ function gensimAg(){
 		},
 		async: true,
 		success : function(){
+			$("#table1").hide();
 			//alert("success");
 			//$("#outunsimple").remove;
 			//$("#grid_11").append("<img src=../../static/images/systemmanager/outsimple.gif>")
